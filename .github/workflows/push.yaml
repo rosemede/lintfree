@@ -12,4 +12,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: echo "::add-matcher::tests/matchers/shellcheck-gcc.json"
-    - run: cat test/output/shellcheck-gcc.txt
+    - run: cat tests/output/shellcheck-gcc.txt
