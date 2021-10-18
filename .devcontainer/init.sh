@@ -2,11 +2,6 @@
 
 cd "$(dirname "$0")"
 
-if ! which brew >/dev/null; then
-    BREW_PREFIX="/home/linuxbrew/.linuxbrew"
-    PATH="foo:${BREW_PREFIX}/sbin:${BREW_PREFIX}/bin:${PATH}"
-fi
-
 brew bundle
 
 pipx install poetry
