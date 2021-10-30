@@ -1,0 +1,3 @@
+mkdir #!/bin/sh -e
+
+SIMULATE_GITHUB=true make lint

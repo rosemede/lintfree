@@ -6,10 +6,12 @@ on:
       - main
 
 jobs:
-  logs:
-    name: Logs
+  build:
+    name: Run tests
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/bottle-garden/devcontainer:main
     steps:
-    - uses: actions/checkout@v2
-    - run: echo "::add-matcher::tests/matchers/shellcheck-gcc.json"
-    - run: cat tests/output/shellcheck-gcc.txt
+      - uses: actions/checkout@v2
+      - run: make --directory .devcontainer install
+      - run: make lint
