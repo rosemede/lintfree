@@ -1,0 +1,77 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "octonote",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceRoot}/.venv/bin/octonote",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "octonote path",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceRoot}/.venv/bin/octonote",
+      "args": ["path"],
+      "cwd": "${workspaceRoot}/src/octonote",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "octonote debug",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceRoot}/.venv/bin/octonote",
+      "args": ["debug", "foo"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "octonote parse gcc",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceRoot}/.venv/bin/octonote",
+      "args": [
+        "parse",
+        "-q",
+        "-p",
+        "shellcheck",
+        "-f",
+        "gcc",
+        "test/output/shellcheck/gcc.txt"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "octonote parse checkstyle",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceRoot}/.venv/bin/octonote",
+      "args": [
+        "parse",
+        "-q",
+        "-p",
+        "shellcheck",
+        "-f",
+        "checkstyle",
+        "test/output/shellcheck/checkstyle.xml"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "octonote parse json",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceRoot}/.venv/bin/octonote",
+      "args": [
+        "parse",
+        "-q",
+        "-p",
+        "shellcheck",
+        "-f",
+        "json",
+        "test/output/shellcheck/json.json"
+      ],
+      "console": "integratedTerminal"
+    }
+  ]
+}

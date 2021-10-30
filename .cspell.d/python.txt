@@ -1,0 +1,4 @@
+jsonpointer
+lxml
+pyjq
+venv

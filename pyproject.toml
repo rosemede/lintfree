@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "problem-matcher"
+name = "octonote"
 version = "0.0.0"
-description = "A CLI tool for testing GitHub problem matcher configurations"
+description = "A CLI tool for generating GitHub workflow annotations"
 authors = ["norosa <23469+norosa@users.noreply.github.com>"]
 repository = "https://github.com/bottle-garden/problem-matcher"
 readme = "README.md"
@@ -17,18 +17,27 @@ classifiers = [
   "Topic :: Utilities"
 ]
 packages = [
-  { include = "pmatch", "from" = "src" },
+  { include = "octonote", "from" = "src" },
 ]
-
 [tool.poetry.dependencies]
 python = "^3.7"
+pastel = "^0.2.1"
+click = "^8.0.3"
+sh = "^1.14.2"
+inflection = "^0.5.1"
+wrapt = "^1.13.3"
+charset-normalizer = "^2.0.7"
+lxml = "^4.6.4"
+pyjq = "^2.5.2"
 
 [tool.poetry.dev-dependencies]
 black = "^21.9b0"
+ipython = "^7.28.0"
+icecream = "^2.1.1"
 
 [build-system]
 build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core>=1.0.0"]
 
 [tool.poetry.scripts]
-pmatch= "pmatch.cli:run"
+octonote = "octonote.cli.cmds:main"

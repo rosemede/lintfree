@@ -6,4 +6,4 @@ WORKDIR /tmp
 
 COPY * /tmp/
 
-RUN /tmp/init.sh
+RUN make clean && make install

@@ -1,0 +1,49 @@
+# ShellCheck has four severity levels: Error, Warning, Info, and Style
+# https://github.com/koalaman/shellcheck/wiki/severity
+
+title: 'ShellCheck'
+formats:
+  gcc:
+    syntax: regex
+    severities:
+      notice:
+        match: '^(.*):(.*):(.*): note: (.*) \[(.*)\]$'
+      warning:
+        match: '^(.*):(.*):(.*): warning: (.*) \[(.*)\]$'
+      error:
+        match: '^(.*):(.*):(.*): error: (.*) \[(.*)\]$'
+    match-attrs:
+      file: '{0}'
+      line: '{1}'
+      title: 'ShellCheck: {4}'
+      message: '{3}'
+  checkstyle:
+    syntax: xpath
+    severities:
+      notice:
+        match: '//error[@severity="info"]'
+      warning:
+        match: '//error[@severity="warning"]'
+      error:
+        match: '//error[@severity="error"]'
+    match-attrs:
+      file: '../@name'
+      line: '@line'
+      title: '@source'
+      message: '@message'
+  json:
+    syntax: jq
+    severities:
+      notice:
+        match:
+          '.[] | select(type=="object" and .level=="style" or .level=="info")'
+      warning:
+        match: '.[] | select(type=="object" and .level=="warning")'
+      error:
+        match: '.[] | select(type=="object" and .level=="error")'
+    match-attrs:
+      file: '.file'
+      line: '.line'
+      end-line: '.endLine'
+      title: '.code'
+      message: '.message'

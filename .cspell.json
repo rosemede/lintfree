@@ -1,0 +1,13 @@
+{
+  "version": "0.2",
+  "language": "en-US",
+  "caseSensitive": false,
+  "allowCompoundWords": true,
+  "minWordLength": 2,
+  "ignorePaths": ["poetry.lock"],
+  "dictionaries": ["custom", "custom-python", "custom-misc", "custom-terms"],
+  "dictionaryDefinitions": [
+    {"name": "custom-python", "path": ".cspell.d/python.txt"},
+    {"name": "custom-terms", "path": ".cspell.d/terms.txt"}
+  ]
+}
