@@ -89,10 +89,7 @@ class ConsoleFormat(BaseFormat):
         file = annotation["file"]
         line = int(annotation["line"])
         end_line = int(annotation["end-line"])
-        if end_line == line:
-            end_line = ""
-        else:
-            end_line = f":{end_line}"
+        end_line = "" if end_line == line else f":{end_line}"
         location = f"  <location>{file}:{line}{end_line}</location>"
         self._print(location)
         # with open(filename, "r") as file:

@@ -82,17 +82,15 @@ class Parser:
 
     def parse(self, input, format):
         # TODO: Figure out a better way to check for this
-        if not self._app._quiet:
-            if input.name == "<stdin>":
-                # Figure out how to do this with the logging plugin for Click
-                print("Reading from standard input...")
+        if not self._app._quiet and input.name == "<stdin>":
+            # Figure out how to do this with the logging plugin for Click
+            print("Reading from standard input...")
         self._input = input.read()
         self._read_config(format)
         self._annotations = self._make_annotations()
 
     def _process_annotations(self, sort_by):
         annotations = self._annotations
-        severity_levels = []
         for annotation in annotations:
             severity_name = annotation["severity_name"]
             try:
@@ -116,6 +114,7 @@ class Parser:
                 annotation["location"] = f"{file}:{line}:{end_line}"
             annotations = sorted(annotations, key=itemgetter("location"))
         if sort_by == "severity":
+            severity_levels = []
             severity_levels.sort()
             annotations = sorted(
                 annotations, key=itemgetter("severity_level"), reverse=True
@@ -130,9 +129,11 @@ class Parser:
                 message=f"Invalid severity name: {error_on}"
             )
         status_code = 0
-        if self._highest_severity is not None:
-            if self._highest_severity >= error_on_severity:
-                status_code = 100 + self._highest_severity
+        if (
+            self._highest_severity is not None
+            and self._highest_severity >= error_on_severity
+        ):
+            status_code = 100 + self._highest_severity
         return status_code
 
     def print(self, sort_by, error_on):
@@ -144,5 +145,4 @@ class Parser:
         if os.environ.get("GITHUB_ACTIONS") == "true":
             report = format.CommandFormat(title, annotations)
             report.print(self._log_group)
-        status_code = self._get_status_code(error_on)
-        return status_code
+        return self._get_status_code(error_on)
