@@ -1,24 +1,17 @@
 {
   "recommendations": [
-    "bierner.github-markdown-preview",
-    "codezombiech.gitignore",
     "dansnow.vscode-dockerfilelint",
     "davidanson.vscode-markdownlint",
-    "eamodio.gitlens",
     "editorconfig.editorconfig",
     "eg2.vscode-npm-script",
     "esbenp.prettier-vscode",
-    "github.codespaces",
     "magicstack.magicpython",
     "ms-python.vscode-pylance",
     "ms-vscode.makefile-tools",
-    "oderwat.indent-rainbow",
     "sharat.vscode-brewfile",
     "streetsidesoftware.code-spell-checker",
     "tetradresearch.vscode-h2o",
     "timonwong.shellcheck",
-    "viktorzetterstrom.non-breaking-space-highlighter",
-    "xshrim.txt-syntax",
     "tamasfe.even-better-toml"
   ]
 }

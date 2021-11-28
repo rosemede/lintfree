@@ -1,4 +1,4 @@
-#!/bin/sh -e
+.githooks/pre-commit#!/bin/sh -e
 
 # Copyright 2021, Naomi Rose and contributors
 #

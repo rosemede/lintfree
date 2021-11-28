@@ -36,13 +36,7 @@ npm: package-lock.json
 npm-clean:
 	$(call sh,rm -f package-lock.json)
 
-git: npm
-	if test -d .git/hooks; then \
-		find .git/hooks -type l -exec rm {} \;; \
-		find .githooks -type f -exec ln -sf ../../{} .git/hooks/ \;; \
-	fi
-
-install.stamp: git
+install.stamp: npm
 	$(call sh,touch $@)
 
 .PHONY: install # Install the necessary software packages
