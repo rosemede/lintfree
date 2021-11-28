@@ -41,8 +41,7 @@ class Handler:
     def _decode(self, bytes):
         # TODO: Catch encoding errors
         charset_data = charset_normalizer.from_bytes(bytes).best()
-        data_str = str(charset_data)
-        return data_str
+        return str(charset_data)
 
     def annotate(self, input):
         raise errors.NotImplementedError

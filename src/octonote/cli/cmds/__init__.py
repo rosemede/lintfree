@@ -26,16 +26,7 @@ from . import path
 @click.group(cls=cli.StylizedGroup)
 @click.help_option("-h", "--help", help=cli.HELP_STR)
 @click.version_option("--version", help=cli.VERSION_STR, message="%(version)s")
-@click.option(
-    "-p",
-    "--path",
-    metavar="<PATH>",
-    envvar="OCTONOTE_PATH",
-    multiple=True,
-    type=click.Path(),
-    help=f"""Set a configuration search path (overriding the `OCTONOTE_PATH`
-    environment variable and the default search path)""",
-)
+@click.option("-p", "--path", metavar="<PATH>", envvar="OCTONOTE_PATH", multiple=True, type=click.Path(), help='Set a configuration search path (overriding the `OCTONOTE_PATH`\x1f    environment variable and the default search path)')
 @click.pass_context
 def main(ctx, path):
     """Generate GitHub annotations from arbitrary input data"""

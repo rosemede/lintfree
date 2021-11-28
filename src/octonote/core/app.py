@@ -79,8 +79,7 @@ class Application:
     def _get_config_files(self):
         for dir_path in self._config_search_paths:
             if dir_path.is_dir():
-                for file_path in dir_path.glob(self._CONFIG_GLOB):
-                    yield file_path
+                yield from dir_path.glob(self._CONFIG_GLOB)
 
     def _load_config(self, config_path):
         config = Configuration(config_path)
