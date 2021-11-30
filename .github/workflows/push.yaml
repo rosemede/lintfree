@@ -1,10 +1,3 @@
-#!/bin/sh -e
-# Copyright 2021, Naomi Rose and contributors
-#
-# Copying and distribution of this file, with or without modification, are
-# permitted in any medium without royalty, provided the copyright notice and
-# this notice are preserved. This file is offered as-is, without any warranty.
-
 name: Push
 on:
   pull_request:
@@ -17,8 +10,7 @@ jobs:
     name: Run tests
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/bottle-garden/devcontainer:main
+      image: ghcr.io/bottle-garden/gh-vscode/devcontainer:universal
     steps:
       - uses: actions/checkout@v2
-      - run: make --directory .devcontainer install
       - run: make lint

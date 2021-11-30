@@ -1,3 +1,4 @@
 {
-"dockerFile": "Dockerfile",
+  "image": "ghcr.io/bottle-garden/gh-vscode/devcontainer:universal",
+  "remoteUser": "vscode"
 }
