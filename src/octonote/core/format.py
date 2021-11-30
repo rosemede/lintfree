@@ -2,7 +2,6 @@ import textwrap
 
 import pastel
 
-
 printer = pastel.Pastel(True)
 printer.add_style("header", options=["bold"])
 printer.add_style("location", "light_blue")

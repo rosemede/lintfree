@@ -1,9 +1,10 @@
-import sh
-
 import pathlib
+
+import sh
 
 import octonote
 from octonote import errors
+
 from .config import Configuration
 from .parse import Parser
 
