@@ -2,10 +2,5 @@ __pycache__
 .venv/
 .vscode/settings.json
 *.log
-*.stamp
 *.tmp
-Brewfile.lock.json
 dist/
-node_modules
-package-lock.json
-pipx.lock.txt
