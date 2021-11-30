@@ -1,0 +1,10 @@
+enabled: true
+
+restylers:
+  - whitespace
+  - prettier
+  - black
+  - reorder-python-imports
+  - shellharden
+  - shfmt:
+      arguments:
