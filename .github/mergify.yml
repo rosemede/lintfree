@@ -1,0 +1,16 @@
+pull_request_rules:
+  - name: Ready to merge
+    conditions:
+      - label=ready-to-merge
+      - check-success=Integration tests
+      - check-success~=^LGTM analysis
+      - check-success~=^Codacy
+      - check-success~=^Scrutinizer
+      - check-success~=^Sourcery
+      - check-success~=^Summary
+      - check-success~=^restyled
+    actions:
+      merge:
+        method: rebase
+        rebase_fallback: null
+        strict: true
