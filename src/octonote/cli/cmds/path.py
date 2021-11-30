@@ -1,7 +1,6 @@
 import os
 
 import click
-
 from octonote import cli
 
 

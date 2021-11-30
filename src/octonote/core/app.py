@@ -1,8 +1,7 @@
 import pathlib
 
-import sh
-
 import octonote
+import sh
 from octonote import errors
 
 from .config import Configuration
