@@ -95,8 +95,9 @@ class ConsoleFormat(BaseFormat):
             severity_name = f"<error>{severity_name.capitalize()}:</error>"
         initial_indent = "      " + severity_len
         msg = annotation["message"]
-        msg = textwrap.fill(
-            msg, 79, initial_indent=initial_indent, subsequent_indent="    "
-        )
+        msg = textwrap.fill(msg,
+                            79,
+                            initial_indent=initial_indent,
+                            subsequent_indent="    ")
         msg = msg.lstrip()
         self._print(f"    {severity_name} {msg}")

@@ -18,7 +18,8 @@ from . import path
     envvar="OCTONOTE_PATH",
     multiple=True,
     type=click.Path(),
-    help="Set a configuration search path (overriding the `OCTONOTE_PATH`\x1f    environment variable and the default search path)",
+    help=
+    "Set a configuration search path (overriding the `OCTONOTE_PATH`\x1f    environment variable and the default search path)",
 )
 @click.pass_context
 def main(ctx, path):
@@ -32,7 +33,6 @@ main.add_command(debug.debug)
 main.add_command(list.list)
 main.add_command(parse.parse)
 main.add_command(path.path)
-
 
 if __name__ == "__main__":
     main()
