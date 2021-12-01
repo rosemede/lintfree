@@ -17,21 +17,21 @@ find_files() {
 find_sh_files() {
     find_files | while read -r file; do
         # Skip any files ignored by Git
-        if git check-ignore "${file}" >/dev/null; then
+        if git check-ignore "$file" >/dev/null; then
             continue 2
         fi
         # Check the file MIME type
-        case $(file --brief --mime-type "${file}") in
+        case $(file --brief --mime-type "$file") in
         # Handle shell script files
         "text/x-shellscript")
             # Append all files
-            echo "${file}"
+            echo "$file"
             ;;
             # Handle plain text files
         "text/plain")
             # Append all files with a shellcheck directive on the first line
-            if head -n 1 "${file}" | grep "# shellcheck shell" >/dev/null; then
-                echo "${file}"
+            if head -n 1 "$file" | grep "# shellcheck shell" >/dev/null; then
+                echo "$file"
             fi
             ;;
         # Default case
@@ -43,10 +43,10 @@ find_sh_files() {
 }
 
 # Cache the output
-find_sh_files >"${tmp_file}"
+find_sh_files >"$tmp_file"
 
 shellcheck_all() {
-    xargs shellcheck --color=always --format "${1}" <"${tmp_file}"
+    xargs shellcheck --color=always --format "${1}" <"$tmp_file"
 }
 
 poetry_run() {
@@ -58,7 +58,7 @@ poetry_run() {
             false
         fi
     else
-        printf "\e${DIM}\$ %s\e${RESET}\n" "$*" && poetry run "$@"
+        printf "\e$DIM\$ %s\e$RESET\n" "$*" && poetry run "$@"
     fi
 }
 
@@ -78,4 +78,4 @@ else
 fi
 
 # Clean up
-rm -f "${tmp_file}"
+rm -f "$tmp_file"
