@@ -2,8 +2,9 @@ import os
 import pathlib
 from operator import itemgetter
 
+from . import format
+from . import query
 from .. import errors
-from . import format, query
 
 
 class Parser:
