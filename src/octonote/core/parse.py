@@ -100,9 +100,9 @@ class Parser:
         if sort_by == "severity":
             severity_levels = []
             severity_levels.sort()
-            annotations = sorted(
-                annotations, key=itemgetter("severity_level"), reverse=True
-            )
+            annotations = sorted(annotations,
+                                 key=itemgetter("severity_level"),
+                                 reverse=True)
         return annotations
 
     def _get_status_code(self, error_on):
@@ -110,13 +110,10 @@ class Parser:
             error_on_severity = self._severity_levels.index(error_on)
         except ValueError as err:
             raise errors.ConfigurationError(
-                message=f"Invalid severity name: {error_on}"
-            )
+                message=f"Invalid severity name: {error_on}")
         status_code = 0
-        if (
-            self._highest_severity is not None
-            and self._highest_severity >= error_on_severity
-        ):
+        if (self._highest_severity is not None
+                and self._highest_severity >= error_on_severity):
             status_code = 100 + self._highest_severity
         return status_code
 
