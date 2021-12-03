@@ -1,5 +1,3 @@
-import os
-
 import click
 
 from obelist import cli
@@ -15,7 +13,9 @@ from obelist import cli
 )
 @click.pass_obj
 def path(app, absolute):
-    """Print the parser configuration search path and exit
+    # editorconfig-checker-disable
+    # noqa: D213
+    r"""Print the parser configuration search path and exit
 
     You can set the configuration search path with the `OBELIST_PATH`
     environment variable. Alternatively, you can invoke `obelist` with the
@@ -34,14 +34,10 @@ def path(app, absolute):
     If ANSI color output is supported, existant directories will be highlighted
     blue whereas non-existant directories will be dimmed.
     """
-    paths = app.get_config_search_paths()
+    # editorconfig-checker-enable
+    paths = app.get_config_search_paths(absolute)
     for path in paths:
-        dirname = path
-        if not absolute:
-            dirname = os.path.relpath(dirname)
-        dirname = click.format_filename(dirname)
-        if path.is_dir():
-            dirname = click.style(f"{dirname}", fg="blue")
-        else:
-            dirname = click.style(f"{dirname}", dim=True)
-        click.echo(f"{dirname}")
+        path = click.format_filename(path)
+        kwargs = {"fg": "blue"} if path.is_dir() else {"dim": True}
+        path = click.style(f"{path}", **kwargs)
+        click.echo(f"{path}")

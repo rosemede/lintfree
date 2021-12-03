@@ -42,84 +42,99 @@ class RegexHandler(Handler):
             match = severities["match"]
             severities["match_re"] = re.compile(match)
 
-    def annotate(self, input):
-        input = self._decode(input)
+    def _get_match(self, line):
+        for severity in self._severities:
+            return severity["match_re"].search(line)
 
+    def _get_matches(self, input):
         matches = []
-
         input_lines = input.strip().splitlines()
         for line in input_lines:
             line = line.rstrip("\n")
-            # print(line)
-            for severity in self._severities:
-                match = severity["match_re"].search(line)
-                if match:
-                    matches.append((line, severity, match))
-                    break
+            match = self._get_match(line)
+            if match:
+                matches.append(match)
+        return matches
 
+    def _add_file(self, match_attrs, match, annotation):
+        file = match_attrs["file"]
+        match_groupdict = match.groupdict()
+        if match_groupdict:
+            file = file.format(**match_groupdict)
+        match_groups = match.groups()
+        if match_groups:
+            file = file.format(*match_groups)
+        annotation["file"] = file
+        return annotation
+
+    def _add_line(self, match_attrs, match, annotation):
+        line = match_attrs["line"]
+        match_groupdict = match.groupdict()
+        if match_groupdict:
+            line = line.format(**match_groupdict)
+        match_groups = match.groups()
+        if match_groups:
+            line = line.format(*match_groups)
+        annotation["line"] = line
+        return annotation
+
+    def _add_end_line(self, match_attrs, match, line, annotation):
+        end_line = match_attrs.get("end-line", line)
+        if end_line == line:
+            return annotation
+        match_groupdict = match.groupdict()
+        if match_groupdict:
+            end_line = line.format(**match_groupdict)
+        match_groups = match.groups()
+        if match_groups:
+            end_line = line.format(*match_groups)
+        annotation["end-line"] = end_line
+        return annotation
+
+    def _add_title(self, match_attrs, match, annotation):
+        title = match_attrs["title"]
+        match_groupdict = match.groupdict()
+        if match_groupdict:
+            title = title.format(**match_groupdict)
+        match_groups = match.groups()
+        if match_groups:
+            title = title.format(*match_groups)
+        annotation["title"] = title
+        return annotation
+
+    def _add_message(self, match_attrs, match, annotation):
+        message = match_attrs["message"]
+        match_groupdict = match.groupdict()
+        if match_groupdict:
+            message = message.format(**match_groupdict)
+        match_groups = match.groups()
+        if match_groups:
+            message = message.format(*match_groups)
+        annotation["message"] = message
+        return annotation
+
+    def _create_annotation(self, matcher, match, line):
+        annotation = {"severity_name": matcher["severity_name"]}
+        match_attrs = matcher.get("match-attrs", self._match_attrs)
+        annotation = self._add_file(match_attrs, match, annotation)
+        annotation = self._add_line(match_attrs, match, annotation)
+        annotation = self._add_end_line(match_attrs, match, line, annotation)
+        annotation = self._add_title(match_attrs, match, annotation)
+        annotation = self._add_message(match_attrs, match, annotation)
+
+    def _get_annotations(self, matches):
         annotations = []
-
         # TODO: Handle exceptions when a user tries to use positional and named
         # groups simultaneously
         for line, matcher, match in matches:
-            annotation = {"severity_name": matcher["severity_name"]}
-
-            match_attrs = matcher.get("match-attrs", self._match_attrs)
-
-            # filename
-            file = match_attrs["file"]
-            match_groupdict = match.groupdict()
-            if match_groupdict:
-                file = file.format(**match_groupdict)
-            match_groups = match.groups()
-            if match_groups:
-                file = file.format(*match_groups)
-            annotation["file"] = file
-
-            # line
-            line = match_attrs["line"]
-            match_groupdict = match.groupdict()
-            if match_groupdict:
-                line = line.format(**match_groupdict)
-            match_groups = match.groups()
-            if match_groups:
-                line = line.format(*match_groups)
-            annotation["line"] = line
-
-            # end-line
-            end_line = match_attrs.get("end-line", line)
-            if end_line != line:
-                match_groupdict = match.groupdict()
-                if match_groupdict:
-                    end_line = line.format(**match_groupdict)
-                match_groups = match.groups()
-                if match_groups:
-                    end_line = line.format(*match_groups)
-            annotation["end-line"] = end_line
-
-            # title
-            title = match_attrs["title"]
-            match_groupdict = match.groupdict()
-            if match_groupdict:
-                title = title.format(**match_groupdict)
-            match_groups = match.groups()
-            if match_groups:
-                title = title.format(*match_groups)
-            annotation["title"] = title
-
-            # message
-            message = match_attrs["message"]
-            match_groupdict = match.groupdict()
-            if match_groupdict:
-                message = message.format(**match_groupdict)
-            match_groups = match.groups()
-            if match_groups:
-                message = message.format(*match_groups)
-            annotation["message"] = message
-
+            annotation = self._create_annotation(matcher, match, line)
             annotations.append(annotation)
-
         return annotations
+
+    def annotate(self, input):
+        input = self._decode(input)
+        matches = self._get_matches(input)
+        return self._get_annotations(matches)
 
 
 class XPathHandler(Handler):
