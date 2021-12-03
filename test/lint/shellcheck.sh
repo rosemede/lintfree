@@ -9,13 +9,13 @@ tmp_file=$(mktemp)
 
 # Find all files in the current directory, skipping the largest directories
 # that would be ignored by Git
-find_files() {
+find_all_files() {
     find . -type f ! -path "./.git/*" ! -path "./.venv/*"
 }
 
-# Find shell script files
-find_sh_files() {
-    find_files | while read -r file; do
+# Find elibible files
+find_eligible_files() {
+    find_all_files | while read -r file; do
         # Skip any files ignored by Git
         if git check-ignore "${file}" >/dev/null; then
             continue 2
@@ -23,12 +23,12 @@ find_sh_files() {
         # Check the file MIME type
         case $(file --brief --mime-type "${file}") in
         # Handle shell script files
-        "text/x-shellscript")
+        text/x-shellscript)
             # Append all files
             echo "${file}"
             ;;
             # Handle plain text files
-        "text/plain")
+        text/plain)
             # Append all files with a shellcheck directive on the first line
             if head -n 1 "${file}" | grep "# shellcheck shell" >/dev/null; then
                 echo "${file}"
@@ -43,10 +43,13 @@ find_sh_files() {
 }
 
 # Cache the output
-find_sh_files >"${tmp_file}"
+find_eligible_files >"${tmp_file}"
 
 shellcheck_all() {
-    xargs shellcheck --color=always --format "${1}" <"${tmp_file}"
+    format="${1}"
+    if test -s "${tmp_file}"; then
+        xargs <"${tmp_file}" shellcheck --color=always --format "${format}"
+    fi
 }
 
 poetry_run() {

@@ -1,37 +1,6 @@
 import re
 
-import charset_normalizer
-from lxml import etree
-import json
-import pyjq
-
-from .. import errors
-
-
-class Handler:
-
-    _format = {}
-
-    _match_attrs = {}
-
-    _severities = []
-
-    def __init__(self, format):
-        self._format = format
-        severities = self._format["severities"]
-        self._match_attrs = self._format["match-attrs"]
-        for severity_name in severities:
-            severity = severities.get(severity_name)
-            self._severities.append(severity)
-
-    def _decode(self, bytes):
-        # TODO: Catch encoding errors
-        charset_data = charset_normalizer.from_bytes(bytes).best()
-        return str(charset_data)
-
-    def annotate(self, input):
-        raise errors.NotImplementedError
-
+from . import Handler
 
 class RegexHandler(Handler):
     def __init__(self, format):
@@ -50,7 +19,7 @@ class RegexHandler(Handler):
         input_lines = input.strip().splitlines()
         for line in input_lines:
             line = line.rstrip("\n")
-            # print(line)
+            print(line)
             for severity in self._severities:
                 match = severity["match_re"].search(line)
                 if match:
@@ -119,57 +88,4 @@ class RegexHandler(Handler):
 
             annotations.append(annotation)
 
-        return annotations
-
-
-class XPathHandler(Handler):
-    def annotate(self, input):
-        annotations = []
-        root = etree.fromstring(input)
-        for severity in self._severities:
-            matches = root.xpath(severity["match"])
-            match_attrs = severity.get("match-attrs", self._match_attrs)
-            for match in matches:
-                annotation = {}
-                # TODO: Catch errors
-                file = match_attrs["file"]
-                line = match_attrs["line"]
-                end_line = match_attrs.get("line", line)
-                title = match_attrs["title"]
-                message = match_attrs["message"]
-                # TODO: Catch errors
-                annotation["severity_name"] = severity["severity_name"]
-                annotation["file"] = match.xpath(file)[0]
-                annotation["line"] = match.xpath(line)[0]
-                annotation["end-line"] = match.xpath(end_line)[0]
-                annotation["title"] = match.xpath(title)[0]
-                annotation["message"] = match.xpath(message)[0]
-                annotations.append(annotation)
-        return annotations
-
-
-class JQHandler(Handler):
-    def annotate(self, input):
-        annotations = []
-        input = self._decode(input)
-        json_dict = json.loads(input)
-        for severity in self._severities:
-            matches = pyjq.all(severity["match"], json_dict)
-            match_attrs = severity.get("match-attrs", self._match_attrs)
-            for match in matches:
-                annotation = {}
-                # TODO: Catch errors
-                file = match_attrs["file"]
-                line = match_attrs["line"]
-                end_line = match_attrs.get("line", line)
-                title = match_attrs["title"]
-                message = match_attrs["message"]
-                # TODO: Catch errors
-                annotation["severity_name"] = severity["severity_name"]
-                annotation["file"] = pyjq.all(file, match)[0]
-                annotation["line"] = pyjq.all(line, match)[0]
-                annotation["end-line"] = pyjq.all(end_line, match)[0]
-                annotation["title"] = pyjq.all(title, match)[0]
-                annotation["message"] = pyjq.all(message, match)[0]
-                annotations.append(annotation)
         return annotations

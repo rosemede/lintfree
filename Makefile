@@ -16,7 +16,8 @@ define sh
 @ if test "${GITHUB_ACTIONS}" = "true"; then \
 	echo "::group::$$ $1" && $1 || (echo "::endgroup::" && false); \
 else \
-	printf "\e$(DIM)$$ %s\e$(RESET)\n" "$1" && $1; \
+	printf "\e$(DIM)$$ %s\e$(RESET)\n" \
+		"$$(echo $1 | sed -E 's,make -[^ ]+ ,make ,')" && $1; \
 fi
 endef
 
@@ -54,13 +55,17 @@ update-run:
 update: install-clean update-run install
 	@ $(SUBMAKE) venv-help
 
-LINT_DEPS += shellcheck
+.PHONY: eclint
+eclint: $(VENV)
+	@ test/lint/eclint.sh || touch $@.tmp
+
 .PHONY: shellcheck
 shellcheck: $(VENV)
-	$(call sh,test/lint/shellcheck.sh)
+	@ test/lint/shellcheck.sh || touch $@.tmp
 
 lint: $(VENV)
-	@ $(SUBMAKE) shellcheck || touch $@.tmp
+	$(call sh,$(SUBMAKE) eclint)
+	$(call sh,$(SUBMAKE) shellcheck)
 	@ if test -e $@.tmp; then \
 		rm -f $@.tmp; \
 		exit 1; \

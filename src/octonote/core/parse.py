@@ -5,7 +5,7 @@ from operator import itemgetter
 
 from .. import errors
 
-from . import query
+from . import handlers
 from . import format
 
 
@@ -17,7 +17,7 @@ class Parser:
     _input = None
 
     _format = None
-    _query_language = None
+    _syntax = None
     _severities = None
 
     _regex_matchers = []
@@ -40,8 +40,13 @@ class Parser:
         self._log_group = self._config.get("log-group")
 
         formats = self._config.get("formats")
-        self._format = formats.get(format)
-        self._query_language = self._format.get("syntax")
+        try:
+            self._format = formats[format]
+        except KeyError:
+            raise errors.NoFormatError(
+                message=f"Invalid format: {format}"
+            )
+        self._syntax = self._format.get("syntax")
         self._severities = self._format.get("severities")
 
         for severity_level, severity_name in enumerate(self._severity_levels):
@@ -52,17 +57,17 @@ class Parser:
 
     # TODO: Introduce annotation classes to handle this
     def _make_annotations(self):
-        if self._query_language == "regex":
-            query_handler = query.RegexHandler(self._format)
-            annotations = query_handler.annotate(self._input)
+        if self._syntax == "regex":
+            handler = handlers.RegexHandler(self._format)
+            annotations = handler.annotate(self._input)
             return annotations
-        if self._query_language == "xpath":
-            query_handler = query.XPathHandler(self._format)
-            annotations = query_handler.annotate(self._input)
+        if self._syntax == "xpath":
+            handler = handlers.XPathHandler(self._format)
+            annotations = handler.annotate(self._input)
             return annotations
-        if self._query_language == "jq":
-            query_handler = query.JQHandler(self._format)
-            annotations = query_handler.annotate(self._input)
+        if self._syntax == "jq":
+            handler = handlers.JQHandler(self._format)
+            annotations = handler.annotate(self._input)
             return annotations
         raise errors.NotImplementedError()
 

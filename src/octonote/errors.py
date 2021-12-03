@@ -78,3 +78,8 @@ class ConfigurationError(BaseError):
 class NoParserError(BaseError):
 
     DEFAULT_MESSAGE = "No parser configuration found"
+
+
+class NoFormatError(BaseError):
+
+    DEFAULT_MESSAGE = "No format found"

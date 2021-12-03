@@ -4,10 +4,14 @@ cmds
 ctx
 cwd
 dl
+eclint
 envvar
 fg
 ipython
 JQ
+jsonpointer
+LSB
+lxml
 mkdir
 ng
 norosa
@@ -15,4 +19,6 @@ octonote
 pexpect
 popen
 printf
+pyjq
 utf8
+venv

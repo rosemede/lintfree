@@ -1,12 +1,3 @@
-# Copyright 2021, Naomi Rose and contributors
-#
-# Copying and distribution of this file, with or without modification, are
-# permitted in any medium without royalty, provided the copyright notice and
-# this notice are preserved. This file is offered as-is, without any warranty.
-
-# ShellCheck has four severity levels: Error, Warning, Info, and Style
-# https://github.com/koalaman/shellcheck/wiki/severity
-
 title: 'ShellCheck'
 formats:
   gcc:
