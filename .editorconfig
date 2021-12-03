@@ -9,15 +9,19 @@ insert_final_newline = true
 max_line_length = 79
 trim_trailing_whitespace = true
 
+[*.md]
+max_line_length = off
+
 [*.py]
-indent_size = off
+indent_size = 4
+profile = black
 
 [*.sh]
 indent_size = 4
 
-[*.md]
-indent_size = off
-max_line_length = off
+[Makefile]
+indent_size = 4
+indent_style = tab
 
 [poetry.lock]
 max_line_length = off
