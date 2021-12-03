@@ -1,0 +1,14 @@
+name: Flake8
+formats:
+  txt:
+    syntax: regex
+    rules:
+      - match: '^([^:]+):(\d+):(\d+): (\w+(\d)+) (.*)$'
+        severity: warning
+    set:
+      filename: 0
+      line: 1
+      code: 3
+      message: 5
+    options:
+      capitalize: true

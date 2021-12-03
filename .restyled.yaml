@@ -1,0 +1,15 @@
+enabled: true
+
+restylers:
+  - jq:
+      enabled: false
+  - isort:
+      enabled: false
+  - yapf:
+      enabled: false
+  - shfmt:
+    arguments:
+      - '-i'
+      - '4'
+      - '-ci'
+  - '*'
