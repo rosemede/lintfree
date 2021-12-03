@@ -1,0 +1,80 @@
+# Global configurations
+# http://prospector.landscape.io/en/master/profiles.html
+# -----------------------------------------------------------------------------
+
+strictness: verylow
+# The project is not mature enough for me to want warnings about missing
+# docstring
+doc-warnings: false
+member-warnings: true
+
+# Without this setting, Prospector incorrectly tries to load the Django plugin,
+# which raised an Exception
+autodetect: false
+
+# Module-specific configurations
+# http://prospector.landscape.io/en/master/supported_tools.html
+# -----------------------------------------------------------------------------
+
+# https://www.pylint.org/
+pylint:
+  run: true
+
+# https://pep8.readthedocs.io/
+pep8:
+  run: true
+
+# Disabled because we use flake8 to wrap pyflakes instead
+# https://launchpad.net/pyflakes
+pyflakes:
+  run: false
+
+# Disabled because we use flake8 to wrap mcabe instead
+# https://github.com/PyCQA/mccabe
+mccabe:
+  run: false
+
+# https://github.com/landscapeio/dodgy
+dodgy:
+  run: true
+
+# https://github.com/PyCQA/pydocstyle
+pep257:
+  run: true
+  disable:
+    - D104 # Missing docstring
+    - D107 # Missing docstring
+    - D211 # No blank lines allowed before class docstring
+    - D213 # Multi-line docstring summary should start at the second line
+    - D404 # First word of the docstring should not be `This`
+    - D415 # First line should end with...
+
+# https://github.com/regebro/pyroma
+pyroma:
+  run: true
+
+# https://github.com/jendrikseipp/vulture
+vulture:
+  run: true
+  options:
+    ignore-names: obj
+
+# Use pyflakes instead
+# https://github.com/timothycrosley/frosted
+frosted:
+  run: false
+
+# This project is not ready for static typing
+# https://github.com/python/mypy
+mypy:
+  run: false
+
+# https://github.com/PyCQA/bandit
+bandit:
+  run: false
+  disable:
+    - B410
+
+  # Internal check to validate this file
+profile-validator:
+  run: true

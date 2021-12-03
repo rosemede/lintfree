@@ -1,0 +1,12 @@
+name: Prospector
+formats:
+  json:
+    syntax: jq
+    rules:
+      - match: '.messages[] | select(type=="object")'
+        severity: warning
+    set:
+      filename: '.location .path'
+      line: '.location .line'
+      code: '.source + ": " + .code'
+      message: '.message'
