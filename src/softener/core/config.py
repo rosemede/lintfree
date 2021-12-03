@@ -1,5 +1,6 @@
 import collections
 
+import charset_normalizer
 import yaml
 
 try:
@@ -44,12 +45,20 @@ class Configuration(collections.UserDict):
     #             raise _errors.ParseError(err)
     #     # ic(self._schema)
 
+    # TODO: DRY out this method (used elsewhere)
+    def _decode(self, bytes):
+        # TODO: Catch encoding errors
+        charset_data = charset_normalizer.from_bytes(bytes).best()
+        return str(charset_data)
+
     def _parse_config(self):
-        with open(self._file_path) as file:
+        with open(self._file_path, "rb") as file:
+            bytes = file.read()
+            content = self._decode(bytes)
             try:
-                config_dict = yaml.load(file, Loader=Loader)
+                config_dict = yaml.load(content, Loader=Loader)
             except yaml.YAMLError as err:
-                raise errors.YamlError(err)
+                raise errors.YamlError(message=err)
         self.update(config_dict)
         # ic(self)
 

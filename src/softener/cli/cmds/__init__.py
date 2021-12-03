@@ -1,9 +1,9 @@
 import click
-
 from softener import cli
 from softener.core.app import Application
 
 from . import debug
+from . import format
 from . import list
 from . import parse
 from . import path
@@ -29,14 +29,19 @@ def main(ctx, path):
     """Generate GitHub annotations from arbitrary input data"""
     app = Application()
     app.set_config_search_paths(path)
+    # noqa: F841
     ctx.obj = app
+    # Silence vulture
+    ctx.obj
 
 
 main.add_command(debug.debug)
+main.add_command(format.format)
 main.add_command(list.list)
 main.add_command(parse.parse)
 main.add_command(path.path)
 
 
 if __name__ == "__main__":
+    # pylint: disable=no-value-for-parameter
     main()

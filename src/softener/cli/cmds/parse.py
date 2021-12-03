@@ -1,7 +1,6 @@
 import sys
 
 import click
-
 from softener import cli
 
 
@@ -17,13 +16,15 @@ from softener import cli
     help="Suppress all non-essential output",
 )
 @click.option(
-    "-v",
-    "--verbose",
+    "-d",
+    "--debug",
     is_flag=True,
-    help="""Print human-readable annotations to the console""",
+    help="Print debug information during parsing",
 )
+# editorconfig-checker-disable
 # TODO: https://click.palletsprojects.com/en/8.0.x/options/#choice-options
 # TODO: https://click.palletsprojects.com/en/8.0.x/options/#dynamic-defaults-for-prompts
+# editorconfig-checker-enable
 @click.option(
     "-p",
     "--parser",
@@ -41,8 +42,10 @@ from softener import cli
     show_default=True,
     help="Exit on the specified severity level (notice, warning, error)",
 )
+# editorconfig-checker-disable
 # TODO: https://click.palletsprojects.com/en/8.0.x/options/#choice-options
 # TODO: https://click.palletsprojects.com/en/8.0.x/options/#dynamic-defaults-for-prompts
+# editorconfig-checker-enable
 @click.option(
     "-f",
     "--format",
@@ -56,12 +59,69 @@ from softener import cli
     "-s",
     "--sort-by",
     metavar="ATTR",
-    default="file",
+    default="filename",
     show_default=True,
-    help="Sort annotations by the specified attribute (file, severity)",
+    help="Sort annotations by the specified attribute (filename, severity)",
+)
+@click.option(
+    "-w",
+    "--write",
+    "write_file",
+    metavar="FILE",
+    default="/dev/stdout",
+    type=click.File("a"),
+    help="""
+        Append annotation commands to the specified file instead of printing
+        them (can be used in combination with `softener print` command)
+    """,
+)
+@click.option(
+    "-c",
+    "--console",
+    is_flag=True,
+    envvar="PRINT_CONSOLE",
+    help="""
+        Print visible annotations to the console (can also be set with the
+        `PRINT_CONSOLE` environment variable value)
+    """,
+)
+@click.option(
+    "-b",
+    "--before-context",
+    metavar="LINES",
+    default=2,
+    show_default=True,
+    type=int,
+    help="""
+        Print the specified number of lines before each annotated section
+    """,
+)
+@click.option(
+    "-a",
+    "--after-context",
+    metavar="LINES",
+    default=0,
+    show_default=True,
+    type=int,
+    help="""
+        Print the specified number of lines after each annotated section
+    """,
 )
 @click.pass_obj
-def parse(app, input, quiet, verbose, parser_id, error_on, format, sort_by):
+def parse(
+    app,
+    input,
+    quiet,
+    debug,
+    parser_id,
+    error_on,
+    format,
+    sort_by,
+    write_file,
+    console,
+    before_context,
+    after_context,
+):
     """Generate annotations from input data using a parser configuration
 
     The `INPUT` argument, if specified, must reference any type of readable
@@ -69,8 +129,8 @@ def parse(app, input, quiet, verbose, parser_id, error_on, format, sort_by):
     when no `INPUT` value is provided, the program will attempt to read from
     STDIN by default.
 
-    When the program exits because of a parsed error message, the returned error
-    code corresponds to the highest error message encountered:
+    When the program exits because of a parsed error message, the returned
+    error code corresponds to the highest error message encountered:
 
     - 100: notice
     - 101: warning
@@ -86,8 +146,10 @@ def parse(app, input, quiet, verbose, parser_id, error_on, format, sort_by):
     the `GITHUB_ACTIONS` environment variable to `true` when running this
     program locally.
     """
-    app.configure_output(quiet=quiet, verbose=verbose)
+    # TODO: IF console is false and this is not being run in a GitHub Actions
+    # workflow, exit immediately
+    app.configure(quiet, debug, error_on, write_file, console)
     app.load_configs()
     app.parse(parser_id, input, format)
-    status_code = app.print(sort_by, error_on)
+    status_code = app.print(sort_by, before_context, after_context)
     sys.exit(status_code)

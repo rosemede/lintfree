@@ -1,33 +1,57 @@
+import shutil
 import textwrap
 
+import charset_normalizer
 import pastel
-
 
 printer = pastel.Pastel(True)
 printer.add_style("header", options=["bold"])
 printer.add_style("location", "light_blue")
-# printer.add_style("code", "white")
+printer.add_style("context", options=["reverse", "italic"])
+printer.add_style("highlight", options=["reverse", "italic", "bold"])
 printer.add_style("notice", options=["bold"])
 printer.add_style("warning", "yellow", options=["bold"])
 printer.add_style("error", "red", options=["bold"])
 
+# For debug output
+printer.add_style("set", "yellow")
+printer.add_style("add", "green")
 
-class BaseFormat:
+
+class BaseFormater:
 
     _github = False
 
-    _title = None
+    _name = None
     _annotations = []
 
-    def __init__(self, title, annotations):
-        self._printer = printer
-        self._title = title
+    _write_file = None
+
+    _terminal_width = None
+    _before_context = None
+    _after_context = None
+
+    def __init__(self, name, annotations, before_context, after_context):
+        self._name = name
         self._annotations = annotations
+        self._terminal_width = shutil.get_terminal_size().columns
+        self._before_context = before_context
+        self._after_context = after_context
+
+    def _get_title(self, annotation):
+        title = annotation.get("title")
+        if title:
+            return title
+        title = self._name
+        code = annotation.get("code")
+        if code:
+            title = f"{self._name} {code}"
+        return title
 
     def _print(self, str):
         print(printer.colorize(str))
 
-    def _print_prologue(self, group_name=None):
+    def _print_prologue(self):
         pass
 
     def _print_annotation(self, annotation):
@@ -37,67 +61,144 @@ class BaseFormat:
         for annotation in self._annotations:
             self._print_annotation(annotation)
 
-    def _print_epilogue(self, group_name=None):
+    def _print_epilogue(self):
         pass
 
-    def print(self, group_name=None):
-        self._print_prologue(group_name)
-        self._print_annotations()
-        self._print_epilogue(group_name)
+    def run(self, write_file):
+        self._write_file = write_file
+        if self._annotations:
+            self._print_prologue()
+            self._print_annotations()
+            self._print_epilogue()
 
 
-class CommandFormat(BaseFormat):
-    def _print_prologue(self, group_name=None):
-        if group_name:
-            group = f"::group::{group_name}"
-            print(group)
+class CommandFormater(BaseFormater):
+    def _handle_command(self, output):
+        self._write_file.write(output + "\n")
+
+    def _print_prologue(self):
+        if self._write_file.name != "/dev/stdout":
+            return
+        group = f"::group::{self._name}"
+        self._handle_command(group)
 
     def _print_annotation(self, annotation):
-        severity_name = annotation["severity_name"]
-        file = f"file={annotation['file']}"
+        severity = annotation["severity"]
+        filename = f"file={annotation['filename']}"
         line = f"line={int(annotation['line'])}"
-        end_line = f"endLine={int(annotation['end-line'])}"
-        title = f"title={annotation['title']}"
-        message = annotation["message"]
-        print(f"::{severity_name} {file},{line},{end_line},{title}::{message}")
+        end_line = f"endLine={int(annotation['end_line'])}"
+        title = self._get_title(annotation)
+        message = annotation["message"].strip()
+        self._handle_command(
+            f"::{severity} {filename},{line},{end_line},{title}::{message}"
+        )
 
-    def _print_epilogue(self, group_name=None):
-        if group_name:
-            print("::endgroup::")
+    def _print_epilogue(self):
+        if self._write_file.name != "/dev/stdout":
+            return
+        self._handle_command("::endgroup::")
 
 
-class ConsoleFormat(BaseFormat):
-    def _print_prologue(self, group_name=None):
-        self._print(f"<header>{self._title}</header>")
+class ConsoleFormater(BaseFormater):
+
+    _first_location = True
+    _previous_location = None
+
+    def _wrap_line(self, line):
+        wrapped_lines = textwrap.wrap(line, self._terminal_width)
+        for wrapped_line in wrapped_lines:
+            yield wrapped_line
+
+    def _wrap_lines(self, lines):
+        for line in lines:
+            if line:
+                yield from self._wrap_line(line)
+                continue
+            yield ""
+
+    def _pad_output(self, lines):
+        for line in self._wrap_lines(lines):
+            line_len = len(line)
+            if line_len < self._terminal_width:
+                line = line + " " * (self._terminal_width - line_len)
+            yield line
+
+    def _get_before_context(self, lines, line):
+        before_lines = lines[line - self._before_context : line]
+        before_lines = self._pad_output(before_lines)
+        before_context = "\n".join(before_lines)
+        return before_context
+
+    def _get_after_context(self, lines, end_line):
+        after_lines = lines[end_line + 1 : end_line + self._after_context]
+        after_lines = self._pad_output(after_lines)
+        after_context = "\n".join(after_lines)
+        return after_context
+
+    def _get_highlight(self, lines, line, end_line):
+        if line == end_line:
+            highlight_lines = [lines[line]]
+        else:
+            highlight_lines = lines[line : end_line + 1]
+        highlight_lines = self._pad_output(highlight_lines)
+        highlight = "\n".join(highlight_lines)
+        return highlight
+
+    def _print_line(self, lines, line, highlight):
+        before_context = self._get_before_context(lines, line)
+        after_context = self._get_after_context(lines, line)
+        if before_context.strip():
+            self._print(f"<context>{before_context}</context>")
+        self._print(f"<highlight>{highlight}</highlight>")
+        if after_context.strip():
+            self._print(f"<context>{after_context}</context>")
+
+    # TODO: DRY out this method (used elsewhere)
+    def _decode(self, bytes):
+        # TODO: Catch encoding errors
+        charset_data = charset_normalizer.from_bytes(bytes).best()
+        return str(charset_data)
+
+    def _print_lines(self, filename, line, end_line):
+        line -= 1
+        end_line -= 1
+        with open(filename, "rb") as file:
+            bytes = file.read()
+            lines = self._decode(bytes).splitlines()
+            # Add an extra empty line to account for the final empty newline
+            lines.append("")
+            if line - 1 > len(lines):
+                return
+            highlight = self._get_highlight(lines, line, end_line)
+            if highlight.strip():
+                self._print_line(lines, line, highlight)
 
     def _print_annotation(self, annotation):
-        print("")
-        file = annotation["file"]
+        filename = annotation["filename"]
         line = int(annotation["line"])
-        end_line = int(annotation["end-line"])
-        end_line = "" if end_line == line else f":{end_line}"
-        location = f"  <location>{file}:{line}{end_line}</location>"
-        self._print(location)
-        # with open(filename, "r") as file:
-        #     lines = file.readlines()
-        #     line = lines[line_num - 1].rstrip("\n")
-        #     line = style.print(f"<code>{line}</code>")
-        #     print(line)
-        severity_name = annotation["severity_name"]
-        severity_len = " " * len(severity_name)
-        if annotation["severity_name"] == "notice":
-            severity_name = annotation["severity_name"]
-            severity_name = f"<notice>{severity_name.capitalize()}:</notice>"
-        if annotation["severity_name"] == "warning":
-            severity_name = annotation["severity_name"]
-            severity_name = f"<warning>{severity_name.capitalize()}:</warning>"
-        if annotation["severity_name"] == "error":
-            severity_name = annotation["severity_name"]
-            severity_name = f"<error>{severity_name.capitalize()}:</error>"
-        initial_indent = "      " + severity_len
-        msg = annotation["message"]
+        end_line = int(annotation["end_line"])
+        end_line_str = "" if end_line == line else f":{end_line}"
+        location = f"<location>{filename}:{line}{end_line_str}</location>"
+        if not self._first_location:
+            self._first_location = False
+            print("")
+        if location != self._previous_location:
+            self._first_location = False
+            self._print(location)
+            self._print_lines(filename, line, end_line)
+        severity = annotation["severity"]
+        # TODO: Make it optional to append `severity` to the title for console
+        # output
+        # severity_str = annotation["severity"].capitalize()
+        title = self._get_title(annotation)
+        title = f"<{severity}>{title}</{severity}>"
+        msg = annotation["message"].strip()
+        indent = "    "
         msg = textwrap.fill(
-            msg, 79, initial_indent=initial_indent, subsequent_indent="    "
+            msg,
+            self._terminal_width,
+            initial_indent=indent,
+            subsequent_indent=indent,
         )
         msg = msg.lstrip()
-        self._print(f"    {severity_name} {msg}")
+        self._print(f"  {title}\n{indent}{msg}")
