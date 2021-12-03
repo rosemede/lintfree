@@ -8,16 +8,14 @@ DIM=[2m
 ITALIC=[3m
 RESET=[0m
 
-VENV    := .venv
-PATH    := $(VENV)/bin:$(PATH)
-SUBMAKE := $(MAKE) --no-print-directory
+VENV     := .venv
+PATH     := $(VENV)/bin:$(PATH)
+SUBMAKE  := $(MAKE) --no-print-directory
+LINT_OUT := lint.tmp
 
 define sh
-@ if test "${GITHUB_ACTIONS}" = "true"; then \
-	echo "::group::$$ $1" && $1 || (echo "::endgroup::" && false); \
-else \
-	printf "\e$(DIM)$$ %s\e$(RESET)\n" "$1" && $1; \
-fi
+@ printf "\e$(DIM)$$ %s\e$(RESET)\n" \
+		"$$(echo $1 | sed -E 's,make -[^ ]+ ,make ,')" && $1;
 endef
 
 .PHONY: help # Print this help message and exit
@@ -54,17 +52,56 @@ update-run:
 update: install-clean update-run install
 	@ $(SUBMAKE) venv-help
 
-LINT_DEPS += shellcheck
+.PHONY: ec
+ec: $(VENV)
+	@ test/lint/ec.sh || true
+
+.PHONY: prettier
+prettier: $(VENV)
+	@ test/lint/prettier.sh || true
+
 .PHONY: shellcheck
 shellcheck: $(VENV)
-	$(call sh,test/lint/shellcheck.sh)
+	@ test/lint/shellcheck.sh || true
 
-lint: $(VENV)
-	@ $(SUBMAKE) shellcheck || touch $@.tmp
-	@ if test -e $@.tmp; then \
-		rm -f $@.tmp; \
-		exit 1; \
+.PHONY: prospector
+prospector: $(VENV)
+	@ test/lint/prospector.sh || true
+
+.PHONY: flake8
+flake8: $(VENV)
+	@ test/lint/flake8.sh || true
+
+.PHONY: pytest
+pytest: $(VENV)
+	@ test/lint/pytest.sh || true
+
+.PHONY: codecov
+codecov: $(VENV)
+	@ test/lint/codecov.sh || true
+
+.PHONY: lint-clean
+lint-clean:
+	@ rm -f $(LINT_OUT)
+
+.PHONY: lint-output
+lint-run: $(VENV) lint-clean
+	$(call sh,$(SUBMAKE) ec)
+	$(call sh,$(SUBMAKE) prettier)
+	$(call sh,$(SUBMAKE) shellcheck)
+	$(call sh,$(SUBMAKE) prospector)
+	$(call sh,$(SUBMAKE) flake8)
+	$(call sh,$(SUBMAKE) pytest)
+	$(call sh,$(SUBMAKE) codecov)
+
+.PHONY: lint-format
+lint-format:
+	@ if test -s "$(LINT_OUT)"; then \
+		obelist format --console --error-on="notice" "$(LINT_OUT)"; \
 	fi
+
+.PHONY: lint # Run lint checks
+lint: lint-run lint-format
 
 # TODO: Not implemented yet
 .PHONY: format # Run all available auto-formatters
