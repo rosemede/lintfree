@@ -1,12 +1,12 @@
-import os
-
 import click
 
 from softener import cli
 
-VALID = click.style(f"valid", fg="green")
-NOT_VALIDATED = click.style(f"not validated", fg="yellow")
-INVALID = click.style(f"invalid", fg="red")
+states = {
+    "valid": click.style("valid", fg="green"),
+    "not_validated": click.style("not validated", fg="yellow"),
+    "invalid": click.style("invalid", fg="red"),
+}
 
 
 @click.command(cls=cli.StylizedCommand)
@@ -21,16 +21,8 @@ INVALID = click.style(f"invalid", fg="red")
 def list(app, absolute):
     """Print a list of parser configurations and exit"""
     app.load_configs()
-    configs = app.get_configs()
-    # TODO: Indicate active config when multiple configs share the same ID
-    for config in configs:
+    for config, filename, validity in app.list(absolute, states):
         id = click.style(f"{config.id}", bold=True)
-        filename = config.filename
-        if not absolute:
-            filename = os.path.relpath(filename)
         filename = click.format_filename(filename)
         filename = click.style(f"{filename}", fg="blue")
-        validity = NOT_VALIDATED
-        if config.valid is not None:
-            validity = config.valid and VALID or INVALID
         click.echo(f"{id}: {filename} ({validity})")

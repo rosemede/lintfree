@@ -6,7 +6,5 @@
   "minWordLength": 2,
   "ignorePaths": ["poetry.lock"],
   "dictionaries": ["custom"],
-  "dictionaryDefinitions": [
-    {"name": "custom", "path": ".cspell.txt"}
-  ]
+  "dictionaryDefinitions": [{"name": "custom", "path": ".cspell.txt"}]
 }
