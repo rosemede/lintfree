@@ -2,8 +2,9 @@ from lxml import etree
 
 from . import Handler
 
+
 class XPathHandler(Handler):
-    def annotate(self, input):
+    def annotate(self, severities, input):
         annotations = []
         root = etree.fromstring(input)
         for severity in self._severities:

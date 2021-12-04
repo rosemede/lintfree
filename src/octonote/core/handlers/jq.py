@@ -5,7 +5,7 @@ from . import Handler
 
 
 class JQHandler(Handler):
-    def annotate(self, input):
+    def annotate(self, severities, input):
         annotations = []
         input = self._decode(input)
         json_dict = json.loads(input)
