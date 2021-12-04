@@ -42,6 +42,8 @@ class BaseError(click.ClickException):
 
     DEFAULT_MESSAGE = "Unknown failure"
 
+    # TODO: Should just be be able to pass previous exception as an argument
+    # instead of using the `message` attribute
     def __init__(self, *args, **kwargs):
         message = kwargs.get("message")
         if message is None:

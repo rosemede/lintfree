@@ -49,7 +49,7 @@ class Configuration(collections.UserDict):
             try:
                 config_dict = yaml.load(file, Loader=Loader)
             except yaml.YAMLError as err:
-                raise errors.YamlError(err)
+                raise errors.YamlError(message=err)
         self.update(config_dict)
         # ic(self)
 

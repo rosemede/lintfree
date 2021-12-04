@@ -55,16 +55,16 @@ update-run:
 update: install-clean update-run install
 	@ $(SUBMAKE) venv-help
 
-.PHONY: eclint
-eclint: $(VENV)
-	@ test/lint/eclint.sh || touch $@.tmp
+.PHONY: ec
+ec: $(VENV)
+	@ test/lint/ec.sh || touch $@.tmp
 
 .PHONY: shellcheck
 shellcheck: $(VENV)
 	@ test/lint/shellcheck.sh || touch $@.tmp
 
 lint: $(VENV)
-	$(call sh,$(SUBMAKE) eclint)
+	$(call sh,$(SUBMAKE) ec)
 	$(call sh,$(SUBMAKE) shellcheck)
 	@ if test -e $@.tmp; then \
 		rm -f $@.tmp; \

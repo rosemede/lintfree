@@ -12,18 +12,19 @@ from . import format
 class Parser:
 
     _app = None
+    _debug = None
     _config = None
 
     _input = None
 
     _format = None
     _syntax = None
-    _severities = None
+    _rules = None
 
     _regex_matchers = []
     _annotations = []
 
-    _severity_levels = ["notice", "warning", "error"]
+    _severities = ["notice", "warning", "error"]
 
     _highest_severity = 0
 
@@ -43,31 +44,30 @@ class Parser:
         try:
             self._format = formats[format]
         except KeyError:
-            raise errors.NoFormatError(
-                message=f"Invalid format: {format}"
-            )
+            raise errors.NoFormatError(message=f"Invalid format: {format}")
         self._syntax = self._format.get("syntax")
-        self._severities = self._format.get("severities")
 
-        for severity_level, severity_name in enumerate(self._severity_levels):
-            severity = self._severities.get(severity_name)
-            if severity:
-                severity["severity_name"] = severity_name
-                severity["severity_level"] = severity_level
+        # self._severities = self._format.get("severities")
+
+        # for severity_level, severity_name in enumerate(self._severity_levels):
+        #     severity = self._severities.get(severity_name)
+        #     if severity:
+        #         severity["severity_name"] = severity_name
+        #         severity["severity_level"] = severity_level
 
     # TODO: Introduce annotation classes to handle this
     def _make_annotations(self):
         if self._syntax == "regex":
             handler = handlers.RegexHandler(self._format)
-            annotations = handler.annotate(self._input)
+            annotations = handler.annotate(self._severities, self._input)
             return annotations
         if self._syntax == "xpath":
             handler = handlers.XPathHandler(self._format)
-            annotations = handler.annotate(self._input)
+            annotations = handler.annotate(self._severities, self._input)
             return annotations
         if self._syntax == "jq":
             handler = handlers.JQHandler(self._format)
-            annotations = handler.annotate(self._input)
+            annotations = handler.annotate(self._severities, self._input)
             return annotations
         raise errors.NotImplementedError()
 
@@ -83,9 +83,9 @@ class Parser:
     def _process_annotations(self, sort_by):
         annotations = self._annotations
         for annotation in annotations:
-            severity_name = annotation["severity_name"]
+            severity = annotation["severity"]
             try:
-                severity_level = self._severity_levels.index(severity_name)
+                severity_level = self._severities.index(severity)
             except ValueError:
                 severity_level = 0
             annotation["severity_level"] = severity_level
@@ -93,15 +93,13 @@ class Parser:
                 self._highest_severity = severity_level
             file = pathlib.Path(annotation["file"])
             annotation["file"] = file.relative_to(".")
+            if annotation["end_line"] is None:
+                annotation["end_line"] = annotation["line"]
         if sort_by == "file":
             for annotation in annotations:
                 file = annotation["file"]
                 line = annotation["line"]
-                end_line = annotation.get("end-line")
-                if end_line == line:
-                    end_line = ""
-                elif end_line is not None:
-                    end_line = f":{end_line}"
+                end_line = annotation["end_line"]
                 annotation["location"] = f"{file}:{line}:{end_line}"
             annotations = sorted(annotations, key=itemgetter("location"))
         if sort_by == "severity":
@@ -114,7 +112,7 @@ class Parser:
 
     def _get_status_code(self, error_on):
         try:
-            error_on_severity = self._severity_levels.index(error_on)
+            error_on_severity = self._severities.index(error_on)
         except ValueError as err:
             raise errors.ConfigurationError(
                 message=f"Invalid severity name: {error_on}"
@@ -130,10 +128,10 @@ class Parser:
     def print(self, sort_by, error_on):
         annotations = self._process_annotations(sort_by)
         title = self._config["title"]
-        if self._app._verbose:
-            report = format.ConsoleFormat(title, annotations)
-            report.print()
+        if self._app._console:
+            formatter = format.ConsoleFormater(title, annotations)
+            formatter.print_report()
         if os.environ.get("GITHUB_ACTIONS") == "true":
-            report = format.CommandFormat(title, annotations)
-            report.print(self._log_group)
+            formatter = format.CommandFormater(title, annotations)
+            formatter.print_report(self._log_group)
         return self._get_status_code(error_on)

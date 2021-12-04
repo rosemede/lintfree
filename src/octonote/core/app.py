@@ -17,7 +17,7 @@ class Application:
     _CONFIG_GLOB = "**/*.yaml"
 
     _quiet = None
-    _verbose = None
+    _console = None
 
     _root_path = None
 
@@ -28,9 +28,9 @@ class Application:
 
     _parser = None
 
-    def configure_output(self, quiet=False, verbose=False):
+    def configure_output(self, quiet=False, console=False):
         self._quiet = quiet
-        self._verbose = verbose
+        self._console = console
 
     def _build_config_search_paths(self, dir_path):
         search_dir = dir_path.joinpath(f"{self._USER_CONFIG_DIR}")

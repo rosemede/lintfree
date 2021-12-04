@@ -1,0 +1,18 @@
+title: EditorConfig
+formats:
+  txt:
+    syntax: regex
+    lines:
+      - match: '^(.*):$'
+        reset: true
+        severity: error
+        set:
+          file: 0
+      - match: '([0-9]+): (.*)$'
+        set:
+          line: 0
+          message: 1
+    rewrite:
+      message:
+        - match: '[^ ]\('
+          replace: ' ('

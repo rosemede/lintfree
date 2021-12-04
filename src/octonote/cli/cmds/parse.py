@@ -17,10 +17,11 @@ from octonote import cli
     help="Suppress all non-essential output",
 )
 @click.option(
-    "-v",
-    "--verbose",
+    "-c",
+    "--console",
     is_flag=True,
-    help="""Print human-readable annotations to the console""",
+    envvar="PRINT_CONSOLE",
+    help="""Print visible annotations to the console (can also be set with the `PRINT_CONSOLE` environment variable value)""",
 )
 # TODO: https://click.palletsprojects.com/en/8.0.x/options/#choice-options
 # TODO: https://click.palletsprojects.com/en/8.0.x/options/#dynamic-defaults-for-prompts
@@ -61,7 +62,7 @@ from octonote import cli
     help="Sort annotations by the specified attribute (file, severity)",
 )
 @click.pass_obj
-def parse(app, input, quiet, verbose, parser_id, error_on, format, sort_by):
+def parse(app, input, quiet, console, parser_id, error_on, format, sort_by):
     """Generate annotations from input data using a parser configuration
 
     The `INPUT` argument, if specified, must reference any type of readable
@@ -86,7 +87,9 @@ def parse(app, input, quiet, verbose, parser_id, error_on, format, sort_by):
     the `GITHUB_ACTIONS` environment variable to `true` when running this
     program locally.
     """
-    app.configure_output(quiet=quiet, verbose=verbose)
+    # TODO: IF console is false and this is not being run in a GitHub Actions
+    # workflow, exit immediately
+    app.configure_output(quiet=quiet, console=console)
     app.load_configs()
     app.parse(parser_id, input, format)
     status_code = app.print(sort_by, error_on)

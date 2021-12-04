@@ -7,17 +7,20 @@ class Handler:
 
     _format = {}
 
-    _match_attrs = {}
+    # _match_attrs = {}
+    # _severities = []
 
-    _severities = []
+    # _input_rules = []
 
     def __init__(self, format):
         self._format = format
-        severities = self._format["severities"]
-        self._match_attrs = self._format["match-attrs"]
-        for severity_name in severities:
-            severity = severities.get(severity_name)
-            self._severities.append(severity)
+
+    # self._input_rules = self._format["input"]
+    # severities = self._format["severities"]
+    # self._match_attrs = self._format["match-attrs"]
+    # for severity_name in severities:
+    #     severity = severities.get(severity_name)
+    #     self._severities.append(severity)
 
     def _decode(self, bytes):
         # TODO: Catch encoding errors

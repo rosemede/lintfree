@@ -1,91 +1,96 @@
 import re
 
+from .. import format
+
 from . import Handler
 
+from icecream import ic
+
+
 class RegexHandler(Handler):
+
+    _line_rules = []
+    _rewrite_keys = []
+
     def __init__(self, format):
         super().__init__(format)
+        # TODO: Catch errors
+        self._line_rules = self._format["lines"]
         # Compile regular expressions (and catch any errors)
-        for severities in self._severities:
+        for rule in self._line_rules:
             # TODO: Catch errors
-            match = severities["match"]
-            severities["match_re"] = re.compile(match)
+            match = rule["match"]
+            rule["match_re"] = re.compile(match)
+        self._rewrite_keys = self._format["rewrite"]
+        for rules in self._rewrite_keys.values():
+            # Compile regular expressions (and catch any errors)
+            for rule in rules:
+                # TODO: Catch errors
+                match = rule["match"]
+                rule["match_re"] = re.compile(match)
 
-    def annotate(self, input):
+    def _debug(self, str):
+        print(format.printer.colorize(f"{str}"))
+
+    def annotate(self, severities, input):
         input = self._decode(input)
 
-        matches = []
+        annotations = []
+
+        current_annotation = {
+            "file": None,
+            "line": None,
+            "end_line": None,
+            "code": None,
+            "severity": None,
+            "message": None,
+        }
+
+        def is_complete(annotation):
+            if not annotation.get("file"):
+                return False
+            if not annotation.get("line"):
+                return False
+            if not annotation.get("severity"):
+                return False
+            if not annotation.get("message"):
+                return False
+            return True
 
         input_lines = input.strip().splitlines()
         for line in input_lines:
             line = line.rstrip("\n")
-            print(line)
-            for severity in self._severities:
-                match = severity["match_re"].search(line)
+            for rule in self._line_rules:
+                match = rule["match_re"].search(line)
                 if match:
-                    matches.append((line, severity, match))
-                    break
+                    if rule.get("reset"):
+                        current_annotation = dict.fromkeys(current_annotation, None)
+                    severity = rule.get("severity")
+                    if severity is not None:
+                        current_annotation["severity"] = severity
+                    set_dict = rule.get("set", {})
+                    for key, group in set_dict.items():
+                        value = match.groups()[group]
+                        current_annotation[key] = value.format(*match.groups())
+                    if is_complete(current_annotation):
+                        annotation = current_annotation.copy()
+                        if annotation not in annotations:
+                            annotations.append(annotation)
+                        # current_annotation = dict.fromkeys(current_annotation, None)
 
-        annotations = []
+        rewrite_dict = self._format.get("rewrite", {})
+        for annotation in annotations:
+            for key, rules in rewrite_dict.items():
+                for rule in rules:
+                    value = annotation[key]
+                    new_value = rule["match_re"].sub(rule["replace"], value)
+                    annotation[key] = new_value
 
-        # TODO: Handle exceptions when a user tries to use positional and named
-        # groups simultaneously
-        for line, matcher, match in matches:
-            annotation = {"severity_name": matcher["severity_name"]}
-
-            match_attrs = matcher.get("match-attrs", self._match_attrs)
-
-            # filename
-            file = match_attrs["file"]
-            match_groupdict = match.groupdict()
-            if match_groupdict:
-                file = file.format(**match_groupdict)
-            match_groups = match.groups()
-            if match_groups:
-                file = file.format(*match_groups)
-            annotation["file"] = file
-
-            # line
-            line = match_attrs["line"]
-            match_groupdict = match.groupdict()
-            if match_groupdict:
-                line = line.format(**match_groupdict)
-            match_groups = match.groups()
-            if match_groups:
-                line = line.format(*match_groups)
-            annotation["line"] = line
-
-            # end-line
-            end_line = match_attrs.get("end-line", line)
-            if end_line != line:
-                match_groupdict = match.groupdict()
-                if match_groupdict:
-                    end_line = line.format(**match_groupdict)
-                match_groups = match.groups()
-                if match_groups:
-                    end_line = line.format(*match_groups)
-            annotation["end-line"] = end_line
-
-            # title
-            title = match_attrs["title"]
-            match_groupdict = match.groupdict()
-            if match_groupdict:
-                title = title.format(**match_groupdict)
-            match_groups = match.groups()
-            if match_groups:
-                title = title.format(*match_groups)
-            annotation["title"] = title
-
-            # message
-            message = match_attrs["message"]
-            match_groupdict = match.groupdict()
-            if match_groupdict:
-                message = message.format(**match_groupdict)
-            match_groups = match.groups()
-            if match_groups:
-                message = message.format(*match_groups)
-            annotation["message"] = message
-
-            annotations.append(annotation)
+        # We do this validation last because the user can modify the severity
+        # at any stage before now
+        for annotation in annotations:
+            severity = annotation["severity"]
+            if severity not in severities:
+                raise ValueError(f"Unknown severity: {value}")
 
         return annotations
