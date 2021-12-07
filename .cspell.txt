@@ -9,6 +9,7 @@ fg
 ipython
 JQ
 jsonpointer
+LSB
 lxml
 mkdir
 ng

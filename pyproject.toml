@@ -41,5 +41,8 @@ icecream = "^2.1.1"
 build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core>=1.0.0"]
 
+[tool.black]
+line-length = 79
+
 [tool.poetry.scripts]
 softener = "softener.cli.cmds:main"
