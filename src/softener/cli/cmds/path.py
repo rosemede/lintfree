@@ -1,7 +1,6 @@
 import os
 
 import click
-
 from softener import cli
 
 

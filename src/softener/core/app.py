@@ -1,7 +1,6 @@
 import pathlib
 
 import sh
-
 import softener
 from softener import errors
 

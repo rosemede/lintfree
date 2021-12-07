@@ -1,7 +1,6 @@
 import sys
 
 import click
-
 from softener import cli
 
 

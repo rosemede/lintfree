@@ -1,9 +1,11 @@
 import click
-
 from softener import cli
 from softener.core.app import Application
 
-from . import debug, list, parse, path
+from . import debug
+from . import list
+from . import parse
+from . import path
 
 
 @click.group(cls=cli.StylizedGroup)
