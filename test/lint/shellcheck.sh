@@ -62,19 +62,19 @@ poetry_run() {
     fi
 }
 
-octonote_parse() {
+softener_parse() {
     shellcheck_all json | poetry_run \
-        octonote parse --quiet --parser shellcheck --format json "$@"
+        softener parse --quiet --parser shellcheck --format json "$@"
 }
 
 if test "${SIMULATE_GITHUB:=}" = "true"; then
     # shellcheck disable=SC2310
     # https://github.com/koalaman/shellcheck/wiki/SC2310
-    shellcheck_all tty >/dev/null || octonote_parse --verbose -
+    shellcheck_all tty >/dev/null || softener_parse --verbose -
 else
     # shellcheck disable=SC2310
     # https://github.com/koalaman/shellcheck/wiki/SC2310
-    shellcheck_all tty || octonote_parse -
+    shellcheck_all tty || softener_parse -
 fi
 
 # Clean up

@@ -2,34 +2,34 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "octonote",
+      "name": "softener",
       "type": "python",
       "request": "launch",
-      "program": "${workspaceRoot}/.venv/bin/octonote",
+      "program": "${workspaceRoot}/.venv/bin/softener",
       "console": "integratedTerminal"
     },
     {
-      "name": "octonote path",
+      "name": "softener path",
       "type": "python",
       "request": "launch",
-      "program": "${workspaceRoot}/.venv/bin/octonote",
+      "program": "${workspaceRoot}/.venv/bin/softener",
       "args": ["path"],
-      "cwd": "${workspaceRoot}/src/octonote",
+      "cwd": "${workspaceRoot}/src/softener",
       "console": "integratedTerminal"
     },
     {
-      "name": "octonote debug",
+      "name": "softener debug",
       "type": "python",
       "request": "launch",
-      "program": "${workspaceRoot}/.venv/bin/octonote",
+      "program": "${workspaceRoot}/.venv/bin/softener",
       "args": ["debug", "foo"],
       "console": "integratedTerminal"
     },
     {
-      "name": "octonote parse gcc",
+      "name": "softener parse gcc",
       "type": "python",
       "request": "launch",
-      "program": "${workspaceRoot}/.venv/bin/octonote",
+      "program": "${workspaceRoot}/.venv/bin/softener",
       "args": [
         "parse",
         "-q",
@@ -42,10 +42,10 @@
       "console": "integratedTerminal"
     },
     {
-      "name": "octonote parse checkstyle",
+      "name": "softener parse checkstyle",
       "type": "python",
       "request": "launch",
-      "program": "${workspaceRoot}/.venv/bin/octonote",
+      "program": "${workspaceRoot}/.venv/bin/softener",
       "args": [
         "parse",
         "-q",
@@ -58,10 +58,10 @@
       "console": "integratedTerminal"
     },
     {
-      "name": "octonote parse json",
+      "name": "softener parse json",
       "type": "python",
       "request": "launch",
-      "program": "${workspaceRoot}/.venv/bin/octonote",
+      "program": "${workspaceRoot}/.venv/bin/softener",
       "args": [
         "parse",
         "-q",

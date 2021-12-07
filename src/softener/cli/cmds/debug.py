@@ -1,6 +1,6 @@
 import click
 
-from octonote import cli
+from softener import cli
 
 
 @click.command(cls=cli.StylizedCommand)

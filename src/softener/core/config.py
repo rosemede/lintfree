@@ -7,7 +7,7 @@ try:
 except ImportError:
     from yaml import Loader
 
-from octonote import errors
+from softener import errors
 
 
 class Configuration(collections.UserDict):

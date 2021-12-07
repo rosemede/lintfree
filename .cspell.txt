@@ -8,11 +8,14 @@ envvar
 fg
 ipython
 JQ
+jsonpointer
+lxml
 mkdir
 ng
 norosa
-octonote
 pexpect
 popen
 printf
+pyjq
 utf8
+venv
