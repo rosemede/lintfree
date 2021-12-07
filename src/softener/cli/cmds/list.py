@@ -1,7 +1,6 @@
 import os
 
 import click
-
 from softener import cli
 
 VALID = click.style(f"valid", fg="green")
