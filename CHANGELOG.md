@@ -5,7 +5,7 @@ This project uses [semantic versioning][semver].
 **Table of contents:**
 
 - [0.x](#0x)
-  - [0.0.0-alpha](#000-alpha)
+  - [0.0.0-b0](#000-b0)
 
 [semver]: https://semver.org/
 
@@ -21,7 +21,7 @@ ADD UNRELEASED CHANGES HERE UNTIL THE NEXT RELEASE IS MADE
 
 ## 0.x
 
-### 0.0.0-alpha
+### 0.0.0-b0
 
 _Released on 2021-12-07_
 
