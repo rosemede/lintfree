@@ -1,13 +1,13 @@
 [tool.poetry]
-name = "octonote"
-version = "0.0.0"
+name = "softener"
+version = "0.0.0-b0"
 description = "A CLI tool for generating GitHub workflow annotations"
 authors = ["norosa <23469+norosa@users.noreply.github.com>"]
-repository = "https://github.com/bottle-garden/problem-matcher"
+repository = "https://github.com/bottle-garden/softener"
 readme = "README.md"
 keywords = [ "testing", "ci-cd", "text-processing", "qa-automation" ]
 classifiers = [
-  "Development Status :: 1 - Planning",
+  "Development Status :: 4 - Beta",
   "Environment :: Console",
   "Intended Audience :: Information Technology",
   "License :: OSI Approved :: MIT License",
@@ -17,8 +17,9 @@ classifiers = [
   "Topic :: Utilities"
 ]
 packages = [
-  { include = "octonote", "from" = "src" },
+  { include = "softener", "from" = "src" },
 ]
+
 [tool.poetry.dependencies]
 python = "^3.7"
 pastel = "^0.2.1"
@@ -40,5 +41,8 @@ icecream = "^2.1.1"
 build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core>=1.0.0"]
 
+[tool.black]
+line-length = 79
+
 [tool.poetry.scripts]
-octonote = "octonote.cli.cmds:main"
+softener = "softener.cli.cmds:main"
