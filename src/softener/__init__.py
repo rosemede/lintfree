@@ -1,5 +1,4 @@
 import pathlib
-
 from importlib.metadata import distribution
 
 dist = distribution("softener")
