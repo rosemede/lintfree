@@ -6,7 +6,6 @@ VERSION_STR = "Print the program version number and exit"
 
 class StylizedHelpFormatter(click.HelpFormatter):
     """This subclass stylizes the formatting of text-based help pages."""
-
     def write_usage(self, *args, **kwargs):
         """Writes a stylized usage line into the buffer."""
         prefix = kwargs.get("prefix", "Usage:")
