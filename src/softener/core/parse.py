@@ -3,8 +3,7 @@ import pathlib
 from operator import itemgetter
 
 from .. import errors
-from . import query
-from . import format
+from . import format, query
 
 
 class Parser:
