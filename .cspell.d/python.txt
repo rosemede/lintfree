@@ -1,4 +1,0 @@
-jsonpointer
-lxml
-pyjq
-venv

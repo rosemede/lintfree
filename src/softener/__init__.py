@@ -1,8 +1,7 @@
 import pathlib
-
 from importlib.metadata import distribution
 
-dist = distribution("octonote")
+dist = distribution("softener")
 version = dist.version
 
 root_dir_path = pathlib.Path(__file__).parent

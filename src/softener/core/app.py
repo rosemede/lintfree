@@ -1,9 +1,8 @@
 import sh
-
 import pathlib
 
-import octonote
-from octonote import errors
+import softener
+from softener import errors
 from .config import Configuration
 from .parse import Parser
 
@@ -12,7 +11,7 @@ class Application:
 
     _PKG_CONFIG_DIR = "data/configs"
 
-    _USER_CONFIG_DIR = ".octonote"
+    _USER_CONFIG_DIR = ".softener"
 
     _CONFIG_GLOB = "**/*.yaml"
 
@@ -51,7 +50,7 @@ class Application:
         search_path = list(search_path)
         pwd_path = pathlib.Path(".").resolve()
         if not search_path:
-            search_path.append(octonote.configs_dir_path)
+            search_path.append(softener.configs_dir_path)
             self._find_root()
             for path in self._build_config_search_paths(pwd_path):
                 search_path.append(path)

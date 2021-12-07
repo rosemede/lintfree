@@ -6,7 +6,7 @@ import click
 # class, but does not work for the `UsageError`, which has its own `show`
 # method.
 #
-# In addition, at the moment, when I run `octonote debug` with a missing
+# In addition, at the moment, when I run `softener debug` with a missing
 # argument, there seems to be a double new line between the usage message and
 # the error message, and I am not sure why. I am also not sure why in the hint
 # about using `--help` is not displayed.
@@ -17,7 +17,6 @@ import click
 # - https://github.com/ewels/MultiQC/commit/62cc60
 # - https://click.palletsprojects.com/en/8.0.x/api/#exceptions
 # - https://stackoverflow.com/questions/61465229/
-
 
 # Seems to be definitive: (grep "Table 7. LSB service exit codes")
 # https://freedesktop.org/software/systemd/man/systemd.exec.html#id-1.20.8
