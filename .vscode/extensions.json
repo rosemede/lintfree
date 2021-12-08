@@ -12,6 +12,11 @@
     "streetsidesoftware.code-spell-checker",
     "tetradresearch.vscode-h2o",
     "timonwong.shellcheck",
-    "tamasfe.even-better-toml"
+    "tamasfe.even-better-toml",
+    "codezombiech.gitignore",
+    "yzhang.markdown-all-in-one",
+    "foxundermoon.shell-format",
+    "xshrim.txt-syntax",
+    "sandcastle.whitespace"
   ]
 }
