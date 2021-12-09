@@ -83,8 +83,7 @@ class Parser:
             raise errors.NoFormatError(message=message) from err
         if handler_class:
             handler = handler_class(self._severities, self._config)
-            annotations = handler.annotate(self._input, debug)
-            return annotations
+            return handler.annotate(self._input, debug)
         return []
 
     def parse(self, input, format, debug):
