@@ -1,5 +1,4 @@
 import click
-
 from softener import cli
 
 states = {
