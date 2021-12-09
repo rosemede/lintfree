@@ -2,7 +2,7 @@
 
 lint_out="${LINT_OUT:=}"
 
-if test -z "${lint_out}"; then
+if test -z "$lint_out"; then
     echo "Error: \`LINT_OUT\` not set"
     exit 1
 fi
@@ -18,5 +18,5 @@ fi
 # allowing `softener` to determine which severity level should result in an
 # error
 flake8 . |
-    softener parse --quiet --write "${lint_out}" \
+    softener parse --quiet --write "$lint_out" \
         --error-on="notice" --parser "flake8" --format "txt" -
