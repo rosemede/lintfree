@@ -1,7 +1,5 @@
-import wrapt
-
 import click
-
+import wrapt
 
 HELP_STR = "Print this help message and exit"
 VERSION_STR = "Print the program version number and exit"

@@ -1,9 +1,10 @@
-import sh
-
 import pathlib
+
+import sh
 
 import obelist
 from obelist import errors
+
 from .config import Configuration
 from .parse import Parser
 
