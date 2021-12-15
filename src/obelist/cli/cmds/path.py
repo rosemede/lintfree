@@ -1,7 +1,6 @@
 import os
 
 import click
-
 from obelist import cli
 
 
