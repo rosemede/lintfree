@@ -8,9 +8,7 @@ VERSION_STR = "Print the program version number and exit"
 
 
 class StylizedHelpFormatter(click.HelpFormatter):
-
     """This subclass stylizes the formatting of text-based help pages."""
-
     def write_usage(self, *args, **kwargs):
         """Writes a stylized usage line into the buffer."""
         prefix = kwargs.get("prefix", "Usage:")
@@ -38,14 +36,12 @@ class StylizedHelpFormatter(click.HelpFormatter):
 
 
 class StylizedContext(click.Context):
-
     """This class adds stylized help formatting to the context object."""
 
     formatter_class = StylizedHelpFormatter
 
 
 class StylizedCommand(click.Command):
-
     """This class augments the stylized help formatting."""
 
     context_class = StylizedContext
@@ -73,14 +69,12 @@ class StylizedCommand(click.Command):
 
 
 class StylizedMultiCommand(click.MultiCommand, StylizedCommand):
-
     """This subclass mixes in the stylized help formatting."""
 
     pass
 
 
 class StylizedGroup(click.Group, StylizedMultiCommand):
-
     """This subclass mixes in the stylized help formatting."""
 
     context_class = StylizedContext

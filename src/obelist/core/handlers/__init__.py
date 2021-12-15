@@ -60,10 +60,8 @@ class Handler:
         severity = annotation["severity"]
         if severity not in self._severities:
             severities = ", ".join(self._severities)
-            message = (
-                f"Invalid severity: {severity}\n\n"
-                + f"Available severities: {severities}"
-            )
+            message = (f"Invalid severity: {severity}\n\n" +
+                       f"Available severities: {severities}")
             raise errors.ConfigurationError(message=message)
 
     def _annotate(self, input):
