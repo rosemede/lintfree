@@ -1,23 +1,31 @@
 [tool.poetry]
-name = "softener"
-version = "0.0.0-b0"
+name = "obelist"
+version = "0.0.0-a0"
 description = "A CLI tool for generating GitHub workflow annotations"
 authors = ["norosa <23469+norosa@users.noreply.github.com>"]
-repository = "https://github.com/bottle-garden/softener"
+repository = "https://github.com/nomiro/obelist"
 readme = "README.md"
-keywords = [ "testing", "ci-cd", "text-processing", "qa-automation" ]
+keywords = [
+  "linting",
+  "continuous-integration",
+  "annotations",
+  "tests",
+  "github-actions",
+  "problem-matcher"
+]
 classifiers = [
-  "Development Status :: 4 - Beta",
+  "Development Status :: 3 - Alpha",
   "Environment :: Console",
   "Intended Audience :: Information Technology",
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Build Tools",
   "Topic :: Software Development :: Quality Assurance",
   "Topic :: Software Development :: Testing",
   "Topic :: Utilities"
 ]
 packages = [
-  { include = "softener", "from" = "src" },
+  { include = "obelist", "from" = "src" },
 ]
 
 [tool.poetry.dependencies]
@@ -45,4 +53,4 @@ requires = ["poetry-core>=1.0.0"]
 line-length = 79
 
 [tool.poetry.scripts]
-softener = "softener.cli.cmds:main"
+obelist = "obelist.cli.cmds:main"

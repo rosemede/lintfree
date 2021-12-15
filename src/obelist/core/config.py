@@ -7,7 +7,7 @@ try:
 except ImportError:
     from yaml import Loader
 
-from softener import errors
+from obelist import errors
 
 
 class Configuration(collections.UserDict):

@@ -2,7 +2,7 @@ import os
 
 import click
 
-from softener import cli
+from obelist import cli
 
 VALID = click.style(f"valid", fg="green")
 NOT_VALIDATED = click.style(f"not validated", fg="yellow")
