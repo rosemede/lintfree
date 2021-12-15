@@ -16,7 +16,9 @@
           "$ref": "#/definitions/PatternMatch"
         }
       },
-      "required": ["name"],
+      "required": [
+        "name"
+      ],
       "title": "Check"
     },
     "Group": {
@@ -27,7 +29,9 @@
           "type": "string"
         }
       },
-      "required": ["by"],
+      "required": [
+        "by"
+      ],
       "title": "Group"
     },
     "PatternMatch": {
@@ -44,7 +48,11 @@
           "$ref": "#/definitions/Errors"
         }
       },
-      "required": ["errors", "notes", "warnings"],
+      "required": [
+        "errors",
+        "notes",
+        "warnings"
+      ],
       "title": "PatternMatch"
     },
     "Errors": {
@@ -70,7 +78,13 @@
           "type": "string"
         }
       },
-      "required": ["filename", "line_num", "msg", "regex", "title"],
+      "required": [
+        "filename",
+        "line_num",
+        "msg",
+        "regex",
+        "title"
+      ],
       "title": "Errors"
     }
   }
