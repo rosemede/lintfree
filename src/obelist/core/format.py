@@ -79,7 +79,9 @@ class CommandFormater(BaseFormater):
     def _print_prologue(self):
         if self._write_file.name != "/dev/stdout":
             return
-        group = f"::group::{self._name}"
+        # TODO: Inflect this name from somewhere
+        name = self._name if self._name else "Obelist"
+        group = f"::group::{name}"
         self._handle_command(group)
 
     def _print_annotation(self, annotation):
