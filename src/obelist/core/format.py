@@ -80,7 +80,7 @@ class CommandFormater(BaseFormater):
         if self._write_file.name != "/dev/stdout":
             return
         # TODO: Inflect this name from somewhere
-        name = self._name if self._name else "Obelist"
+        name = self._name or "Obelist"
         group = f"::group::{name}"
         self._handle_command(group)
 
@@ -108,8 +108,7 @@ class ConsoleFormater(BaseFormater):
 
     def _wrap_line(self, line):
         wrapped_lines = textwrap.wrap(line, self._terminal_width)
-        for wrapped_line in wrapped_lines:
-            yield wrapped_line
+        yield from wrapped_lines
 
     def _wrap_lines(self, lines):
         for line in lines:
@@ -128,14 +127,12 @@ class ConsoleFormater(BaseFormater):
     def _get_before_context(self, lines, line):
         before_lines = lines[line - self._before_context : line]
         before_lines = self._pad_output(before_lines)
-        before_context = "\n".join(before_lines)
-        return before_context
+        return "\n".join(before_lines)
 
     def _get_after_context(self, lines, end_line):
         after_lines = lines[end_line + 1 : end_line + self._after_context]
         after_lines = self._pad_output(after_lines)
-        after_context = "\n".join(after_lines)
-        return after_context
+        return "\n".join(after_lines)
 
     def _get_highlight(self, lines, line, end_line):
         if line == end_line:
@@ -143,8 +140,7 @@ class ConsoleFormater(BaseFormater):
         else:
             highlight_lines = lines[line : end_line + 1]
         highlight_lines = self._pad_output(highlight_lines)
-        highlight = "\n".join(highlight_lines)
-        return highlight
+        return "\n".join(highlight_lines)
 
     def _print_line(self, lines, line, highlight):
         before_context = self._get_before_context(lines, line)

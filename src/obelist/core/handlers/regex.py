@@ -31,8 +31,8 @@ class RegexHandler(Handler):
         groups_len = len(match.groups())
         leading_zeros = len(str(groups_len))
         group_lines = []
+        modifier = f":0{leading_zeros}d"
         for num, value in enumerate(match.groups()):
-            modifier = f":0{leading_zeros}d"
             fstring = 'f"    {' + f"{num}{modifier}" + "}: " + f'{value}"'
             groups_line = eval(fstring)
             group_lines.append(groups_line)
@@ -40,10 +40,10 @@ class RegexHandler(Handler):
         print(f"  Matched groups:\n\n{formatted_groups}\n")
 
     def _annotation_is_complete(self, annotation):
-        for required_attribute in self._required_attributes:
-            if annotation[required_attribute] is None:
-                return False
-        return True
+        return all(
+            annotation[required_attribute] is not None
+            for required_attribute in self._required_attributes
+        )
 
     def _handle_reset(self, rule, annotation):
         if rule.get("reset"):
