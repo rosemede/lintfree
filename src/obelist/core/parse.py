@@ -5,8 +5,8 @@ from operator import itemgetter
 
 import natsort
 
-from .. import errors
 from . import format
+from .. import errors
 from .handlers.jq import JQHandler
 from .handlers.regex import RegexHandler
 from .handlers.xpath import XPathHandler

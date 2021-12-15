@@ -1,9 +1,12 @@
 import click
-
 from obelist import cli
 from obelist.core.app import Application
 
-from . import debug, format, list, parse, path
+from . import debug
+from . import format
+from . import list
+from . import parse
+from . import path
 
 
 @click.group(cls=cli.StylizedGroup)
