@@ -2,7 +2,7 @@ import os
 
 import click
 
-from softener import cli
+from obelist import cli
 
 
 @click.command(cls=cli.StylizedCommand)
@@ -17,9 +17,9 @@ from softener import cli
 def path(app, absolute):
     """Print the parser configuration search path and exit
 
-    You can set the configuration search path with the `SOFTENER_PATH`
-    environment variable. Alternatively, you can invoke `softener` with the
-    `-p` or `--path` options (see `softener --help` for more information).
+    You can set the configuration search path with the `OBELIST_PATH`
+    environment variable. Alternatively, you can invoke `obelist` with the
+    `-p` or `--path` options (see `obelist --help` for more information).
 
     If you do not set a search path, the program will generate a default path
     that:
@@ -27,7 +27,7 @@ def path(app, absolute):
     - Searches the program's built-in stock configuration directory
 
     \b
-    - Searches for `.softener` directories in every parent of the current
+    - Searches for `.obelist` directories in every parent of the current
       working directory (within the bounds of the current Git repository, if
       detected)
 

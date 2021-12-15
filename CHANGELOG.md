@@ -5,7 +5,7 @@ This project uses [semantic versioning][semver].
 **Table of contents:**
 
 - [0.x](#0x)
-  - [0.0.0-b0](#000-b0)
+  - [0.0.0-a0](#000-a0)
 
 [semver]: https://semver.org/
 
@@ -21,10 +21,8 @@ ADD UNRELEASED CHANGES HERE UNTIL THE NEXT RELEASE IS MADE
 
 ## 0.x
 
-### 0.0.0-b0
+### 0.0.0-a0
 
-_Released on 2021-12-07_
+_Released on 2021-12-15_
 
-- Added the first working version of the program, which can parse `checkstyle`,
-  `gcc`, and `json` output from lint files and generate the corresponding
-  annotation for GitHub Actions.
+- Added the first working version of the program, which can parse `checkstyle`, `gcc`, and `json` output from lint files and generate the corresponding annotation for GitHub Actions.

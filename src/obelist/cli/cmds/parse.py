@@ -2,7 +2,7 @@ import sys
 
 import click
 
-from softener import cli
+from obelist import cli
 
 
 @click.command(cls=cli.StylizedCommand)
