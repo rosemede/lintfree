@@ -66,10 +66,6 @@ class Application:
         search_path = list(search_path)
         pwd_path = pathlib.Path(".").resolve()
         if not search_path:
-<<<<<<< HEAD:src/obelist/core/app.py
-            search_path.append(obelist.configs_dir_path)
-=======
->>>>>>> f178849 (fixup):src/softener/core/app.py
             self._extend_config_search_path(search_path, pwd_path)
         for path in reversed(search_path):
             absolute_path = path.resolve()
