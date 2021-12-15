@@ -2,7 +2,7 @@ import pathlib
 
 from importlib.metadata import distribution
 
-dist = distribution("softener")
+dist = distribution("obelist")
 version = dist.version
 
 root_dir_path = pathlib.Path(__file__).parent

@@ -2,34 +2,34 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "softener",
+      "name": "obelist",
       "type": "python",
       "request": "launch",
-      "program": "${workspaceRoot}/.venv/bin/softener",
+      "program": "${workspaceRoot}/.venv/bin/obelist",
       "console": "integratedTerminal"
     },
     {
-      "name": "softener path",
+      "name": "obelist path",
       "type": "python",
       "request": "launch",
-      "program": "${workspaceRoot}/.venv/bin/softener",
+      "program": "${workspaceRoot}/.venv/bin/obelist",
       "args": ["path"],
-      "cwd": "${workspaceRoot}/src/softener",
+      "cwd": "${workspaceRoot}/src/obelist",
       "console": "integratedTerminal"
     },
     {
-      "name": "softener debug",
+      "name": "obelist debug",
       "type": "python",
       "request": "launch",
-      "program": "${workspaceRoot}/.venv/bin/softener",
+      "program": "${workspaceRoot}/.venv/bin/obelist",
       "args": ["debug", "foo"],
       "console": "integratedTerminal"
     },
     {
-      "name": "softener parse gcc",
+      "name": "obelist parse gcc",
       "type": "python",
       "request": "launch",
-      "program": "${workspaceRoot}/.venv/bin/softener",
+      "program": "${workspaceRoot}/.venv/bin/obelist",
       "args": [
         "parse",
         "-q",
@@ -42,10 +42,10 @@
       "console": "integratedTerminal"
     },
     {
-      "name": "softener parse checkstyle",
+      "name": "obelist parse checkstyle",
       "type": "python",
       "request": "launch",
-      "program": "${workspaceRoot}/.venv/bin/softener",
+      "program": "${workspaceRoot}/.venv/bin/obelist",
       "args": [
         "parse",
         "-q",
@@ -58,10 +58,10 @@
       "console": "integratedTerminal"
     },
     {
-      "name": "softener parse json",
+      "name": "obelist parse json",
       "type": "python",
       "request": "launch",
-      "program": "${workspaceRoot}/.venv/bin/softener",
+      "program": "${workspaceRoot}/.venv/bin/obelist",
       "args": [
         "parse",
         "-q",

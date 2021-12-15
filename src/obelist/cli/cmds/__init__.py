@@ -1,7 +1,7 @@
 import click
 
-from softener import cli
-from softener.core.app import Application
+from obelist import cli
+from obelist.core.app import Application
 
 from . import debug
 from . import list
@@ -16,11 +16,11 @@ from . import path
     "-p",
     "--path",
     metavar="<PATH>",
-    envvar="SOFTENER_PATH",
+    envvar="OBELIST_PATH",
     multiple=True,
     type=click.Path(),
     help="""
-        Set a configuration search path (overriding the `SOFTENER_PATH`
+        Set a configuration search path (overriding the `OBELIST_PATH`
         environment variable and the default search path)
     """,
 )

@@ -6,7 +6,7 @@ import click
 # class, but does not work for the `UsageError`, which has its own `show`
 # method.
 #
-# In addition, at the moment, when I run `softener debug` with a missing
+# In addition, at the moment, when I run `obelist debug` with a missing
 # argument, there seems to be a double new line between the usage message and
 # the error message, and I am not sure why. I am also not sure why in the hint
 # about using `--help` is not displayed.
