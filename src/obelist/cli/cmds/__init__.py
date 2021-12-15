@@ -36,6 +36,5 @@ main.add_command(list.list)
 main.add_command(parse.parse)
 main.add_command(path.path)
 
-
 if __name__ == "__main__":
     main()

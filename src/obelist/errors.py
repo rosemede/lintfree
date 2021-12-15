@@ -18,7 +18,6 @@ import click
 # - https://click.palletsprojects.com/en/8.0.x/api/#exceptions
 # - https://stackoverflow.com/questions/61465229/
 
-
 # Seems to be definitive: (grep "Table 7. LSB service exit codes")
 # https://freedesktop.org/software/systemd/man/systemd.exec.html#id-1.20.8
 
