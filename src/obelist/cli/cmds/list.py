@@ -1,5 +1,4 @@
 import click
-
 from obelist import cli
 
 states = {
