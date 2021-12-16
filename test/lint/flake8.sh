@@ -3,8 +3,8 @@
 lint_out="${LINT_OUT:=}"
 
 if test -z "$lint_out"; then
-    echo "Error: \`LINT_OUT\` not set"
-    exit 1
+  echo "Error: \`LINT_OUT\` not set"
+  exit 1
 fi
 
 # TODO: Add more flake8 extensions
@@ -18,5 +18,5 @@ fi
 # allowing `obelist` to determine which severity level should result in an
 # error
 flake8 . |
-    obelist parse --quiet --console --write "$lint_out" \
-        --error-on="notice" --parser "flake8" --format "txt" -
+  obelist parse --quiet --console --write "$lint_out" \
+    --error-on="notice" --parser "flake8" --format "txt" -
