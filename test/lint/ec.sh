@@ -7,8 +7,6 @@ if test -z "${lint_out}"; then
     exit 1
 fi
 
-ec -no-color || true
-
 # Using a pipe means the exit value of the first command will be ignored,
 # allowing `obelist` to determine which severity level should result in an
 # error
