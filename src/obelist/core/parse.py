@@ -28,9 +28,7 @@ class Parser:
         "jq": JQHandler,
     }
 
-    _command_regex = (
-        r"::(\w+) file=([^,]+),line=(\d+),endLine=(\d+),(.*)::(.*)"
-    )
+    _command_regex = r"::(\w+) (file=([^,]+))?(,line=(\d+))?(,endLine=(\d+))?(,title=(.+))?::(.*)"
 
     _regex_matchers = []
     _annotations = []
@@ -174,21 +172,19 @@ class Parser:
         content = read_file.read()
         for line in content.splitlines():
             matches = command_regex_re.match(line)
-            (
-                severity,
-                filename,
-                line,
-                end_line,
-                title,
-                message,
-            ) = matches.groups()
+            from icecream import ic
+
+            ic(line)
+            ic(matches)
+            groups = matches.groups()
+            ic(groups)
             annotation = {
-                "severity": severity,
-                "filename": filename,
-                "line": line,
-                "end_line": end_line,
-                "title": title,
-                "message": message,
+                "severity": groups[0],
+                "filename": groups[2],
+                "line": groups[4],
+                "end_line": groups[6],
+                "title": groups[8],
+                "message": groups[9],
             }
             self._annotations.append(annotation)
 

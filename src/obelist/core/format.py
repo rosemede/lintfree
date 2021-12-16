@@ -86,7 +86,7 @@ class CommandFormater(BaseFormater):
 
     def _print_annotation(self, annotation):
         severity = annotation["severity"]
-        filename = f"file={annotation['filename']}"
+        file = f"file={annotation['filename']}"
         line = f",line={int(annotation['line'])}"
         end_line = ""
         if annotation["line"] != annotation["end_line"]:
@@ -94,7 +94,7 @@ class CommandFormater(BaseFormater):
         title = f",title={self._get_title(annotation)}"
         message = annotation["message"].strip()
         self._handle_command(
-            f"::{severity} {filename}{line}{end_line}{title}::{message}"
+            f"::{severity} {file}{line}{end_line}{title}::{message}"
         )
 
     def _print_epilogue(self):
