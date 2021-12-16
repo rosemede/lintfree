@@ -134,8 +134,7 @@ class RegexHandler(Handler):
     def annotate(self, input):
         input = self._decode(input)
         matches = self._get_matches(input)
-        annotations = self._get_annotations(matches)
-        return annotations
+        return self._get_annotations(matches)
 
 
 class XPathHandler(Handler):
