@@ -94,8 +94,7 @@ class CommandFormater(BaseFormater):
         title = f",title={self._get_title(annotation)}"
         message = annotation["message"].strip()
         self._handle_command(
-            f"::{severity} {file}{line}{end_line}{title}::{message}"
-        )
+            f"::{severity} {file}{line}{end_line}{title}::{message}")
 
     def _print_epilogue(self):
         if self._write_file.name != "/dev/stdout":
@@ -127,12 +126,12 @@ class ConsoleFormater(BaseFormater):
             yield line
 
     def _get_before_context(self, lines, line):
-        before_lines = lines[line - self._before_context : line]
+        before_lines = lines[line - self._before_context:line]
         before_lines = self._pad_output(before_lines)
         return "\n".join(before_lines)
 
     def _get_after_context(self, lines, end_line):
-        after_lines = lines[end_line + 1 : end_line + self._after_context]
+        after_lines = lines[end_line + 1:end_line + self._after_context]
         after_lines = self._pad_output(after_lines)
         return "\n".join(after_lines)
 
@@ -140,7 +139,7 @@ class ConsoleFormater(BaseFormater):
         if line == end_line:
             highlight_lines = [lines[line]]
         else:
-            highlight_lines = lines[line : end_line + 1]
+            highlight_lines = lines[line:end_line + 1]
         highlight_lines = self._pad_output(highlight_lines)
         return "\n".join(highlight_lines)
 
