@@ -28,6 +28,7 @@ class Parser:
         "jq": JQHandler,
     }
 
+    # TODO: Move this to an in-built parser config
     _command_regex = r"::(\w+) (file=([^,]+))?(,line=(\d+))?(,endLine=(\d+))?(,title=(.+))?::(.*)"
 
     _regex_matchers = []
@@ -192,17 +193,25 @@ class Parser:
         if self._app._console:
             formatter_classes.append(format.ConsoleFormater)
 
+    def _check_writing_to_file(self, write_file):
+        return write_file is not None and write_file.name != "/dev/stdout"
+
+    def _check_github_actions(self):
+        return os.environ.get("GITHUB_ACTIONS") == "true"
+
+    # TODO: Make output of GitHub commands configurable with a CLI option
     def _add_command_class(self, formatter_classes, write_file):
-        if (
-            write_file is not None
-            and write_file.name != "/dev/stdout"
-            or os.environ.get("GITHUB_ACTIONS") == "true"
-        ):
+        if self._check_writing_to_file(write_file):
+            print("writing to a file, so adding formatter")
+            formatter_classes.append(format.CommandFormater)
+        if self._check_github_actions():
+            print("this is a github actions run, so adding formatter")
             formatter_classes.append(format.CommandFormater)
 
     def _get_formatter_classes(self, write_file):
         formatter_classes = []
         self._add_console_class(formatter_classes)
+        print("about to add command class formatter")
         self._add_command_class(formatter_classes, write_file)
         return formatter_classes
 
