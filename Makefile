@@ -96,6 +96,7 @@ lint-run: $(VENV) lint-clean
 
 .PHONY: lint-format
 lint-format:
+	cat "$(LINT_OUT)"
 	@ if test -s "$(LINT_OUT)"; then \
 		obelist format --console --error-on="notice" "$(LINT_OUT)"; \
 	fi
