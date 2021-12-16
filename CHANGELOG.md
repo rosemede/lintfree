@@ -58,7 +58,9 @@ This project uses [semantic versioning][semver].
 
 _Released on 2021-12-15_
 
-- Added the first working version of the program, which can parse `checkstyle`, `gcc`, and `json` output from lint files and generate the corresponding annotation for GitHub Actions.
+- Added the first working version of the program, which can parse `checkstyle`,
+  `gcc`, and `json` output from lint files and generate the corresponding
+  annotation for GitHub Actions.
 
   This release includes a reference implementation for [ShellCheck][shellcheck].
 
