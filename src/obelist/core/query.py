@@ -1,9 +1,9 @@
+import json
 import re
 
 import charset_normalizer
-from lxml import etree
-import json
 import pyjq
+from lxml import etree
 
 from .. import errors
 
