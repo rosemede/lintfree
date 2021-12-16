@@ -1,7 +1,6 @@
 import shutil
 
 import click
-
 import obelist
 
 HELP_STR = "Print this help message and exit"

@@ -1,9 +1,8 @@
 import os
 import pathlib
 
-import sh
-
 import obelist
+import sh
 from obelist import errors
 
 from .config import Configuration
