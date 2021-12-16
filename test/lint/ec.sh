@@ -2,7 +2,7 @@
 
 lint_out="${LINT_OUT:=}"
 
-if test -z "${lint_out}"; then
+if test -z "$lint_out"; then
     echo "Error: \`LINT_OUT\` not set"
     exit 1
 fi
@@ -11,5 +11,5 @@ fi
 # allowing `obelist` to determine which severity level should result in an
 # error
 ec -no-color |
-    obelist parse --quiet --console --write "${lint_out}" \
+    obelist parse --quiet --console --write "$lint_out" \
         --error-on="notice" --parser "ec" --format "txt" -
