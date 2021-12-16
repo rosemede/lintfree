@@ -30,10 +30,9 @@ class Parser:
 
     # TODO: Move this to an in-built parser config
     _command_regex = (
-        r"::(\w+) "
-        + r"(file=([^,]+))?(,line=(\d+))?(,endLine=(\d+))?(,title=(.+))?"
-        + r"::(.*)"
-    )
+        r"::(\w+) " +
+        r"(file=([^,]+))?(,line=(\d+))?(,endLine=(\d+))?(,title=(.+))?" +
+        r"::(.*)")
 
     _regex_matchers = []
     _annotations = []
@@ -60,9 +59,8 @@ class Parser:
         except KeyError as err:
             formats = ", ".join(formats.keys())
             message = (
-                f"Format not defined in parser configuration: {format}\n\n"
-                + f"Available formats: {formats}"
-            )
+                f"Format not defined in parser configuration: {format}\n\n" +
+                f"Available formats: {formats}")
             raise errors.NoFormatError(message=message) from err
 
         # self._severities = self._format.get("severities")
@@ -81,8 +79,7 @@ class Parser:
         except KeyError as err:
             syntaxes = ", ".join(self._handler_classes.keys())
             message = (
-                f"Unknown syntax: {syntax}\n\nSupported syntaxes: {syntaxes}"
-            )
+                f"Unknown syntax: {syntax}\n\nSupported syntaxes: {syntaxes}")
             raise errors.NoFormatError(message=message) from err
         if handler_class:
             handler = handler_class(self._severities, self._config)
@@ -142,9 +139,8 @@ class Parser:
 
     def _sort_annotations(self, sort_by):
         if sort_by == "filename":
-            self._annotations = natsort.os_sorted(
-                self._annotations, key=itemgetter("location")
-            )
+            self._annotations = natsort.os_sorted(self._annotations,
+                                                  key=itemgetter("location"))
         if sort_by == "severity":
             self._annotations = natsort.os_sorted(
                 self._annotations,
@@ -162,13 +158,10 @@ class Parser:
             error_on_severity = self._severities.index(error_on)
         except ValueError as err:
             raise errors.ConfigurationError(
-                message=f"Invalid severity name: {error_on}"
-            ) from err
+                message=f"Invalid severity name: {error_on}") from err
         status_code = 0
-        if (
-            self._highest_severity is not None
-            and self._highest_severity >= error_on_severity
-        ):
+        if (self._highest_severity is not None
+                and self._highest_severity >= error_on_severity):
             status_code = 100 + self._highest_severity
         return status_code
 
@@ -213,14 +206,12 @@ class Parser:
 
     def _format(self, write_file, before_context, after_context):
         for formatter_class in self._get_formatter_classes(write_file):
-            formatter = formatter_class(
-                self._name, self._annotations, before_context, after_context
-            )
+            formatter = formatter_class(self._name, self._annotations,
+                                        before_context, after_context)
             formatter.run(write_file)
 
-    def print(
-        self, error_on, write_file, sort_by, before_context, after_context
-    ):
+    def print(self, error_on, write_file, sort_by, before_context,
+              after_context):
         self._postprocess_annotations(sort_by)
         self._format(write_file, before_context, after_context)
         return self._get_status_code(error_on)

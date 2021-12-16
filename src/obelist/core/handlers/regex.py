@@ -40,10 +40,8 @@ class RegexHandler(Handler):
         print(f"  Matched groups:\n\n{formatted_groups}\n")
 
     def _annotation_is_complete(self, annotation):
-        return all(
-            annotation[required_attribute] is not None
-            for required_attribute in self._required_attributes
-        )
+        return all(annotation[required_attribute] is not None
+                   for required_attribute in self._required_attributes)
 
     def _handle_reset(self, rule, annotation):
         if rule.get("reset"):
