@@ -16,6 +16,7 @@ This project uses [semantic versioning][semver].
 
 - Add reference implementations for the following tools:
 
+  - [MarkdownLint][markdownlint]
   - [shfmt][shfmt]
   - [Whitespace Total Fixer][wtf]
 
@@ -48,7 +49,7 @@ _Released on 2021-12-17_
 
   For example:
 
-  ```
+  ```text
   src/obelist/core/query.py:45
   >             severities["match_re"] = re.compile(match)
   >
@@ -77,6 +78,7 @@ _Released on 2021-12-15_
 [editorconfig]: https://editorconfig.org/
 [flake8]: https://flake8.pycqa.org/en/latest/
 [jq]: https://stedolan.github.io/jq/manual/
+[markdownlint]: https://github.com/igorshubovych/markdownlint-cli
 [prettier]: https://prettier.io/
 [prospector]: http://prospector.landscape.io/en/master/
 [shellcheck]: https://www.shellcheck.net/

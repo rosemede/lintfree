@@ -1,0 +1,13 @@
+name: MarkdownLint
+formats:
+  txt:
+    syntax: regex
+    rules:
+      - match: '^([^:]+):(\d+)(:(\d+))? ([^ ]+) (.*)$'
+        severity: warning
+        reset: true
+        set:
+          filename: 0
+          line: 1
+          code: 4
+          message: 5

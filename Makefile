@@ -60,6 +60,10 @@ wtf:
 ec:
 	@ test/lint/ec.sh || true
 
+.PHONY: markdownlint
+markdownlint:
+	@ test/lint/markdownlint.sh || true
+
 .PHONY: prettier
 prettier:
 	@ test/lint/prettier.sh || true
@@ -96,6 +100,7 @@ lint-clean:
 lint-run: $(VENV) lint-clean
 	$(call sh,$(SUBMAKE) wtf)
 	$(call sh,$(SUBMAKE) ec)
+	$(call sh,$(SUBMAKE) markdownlint)
 	$(call sh,$(SUBMAKE) prettier)
 	$(call sh,$(SUBMAKE) shellcheck)
 	$(call sh,$(SUBMAKE) shfmt)
