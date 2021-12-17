@@ -6,7 +6,5 @@ restylers:
   - prettier-json
   - shfmt:
       arguments: ['-p', '-i', '4']
-  - shellharden:
-      interpreters: ['sh']
   - black
   - reorder-python-imports
