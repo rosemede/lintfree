@@ -1,0 +1,12 @@
+enabled: true
+
+restylers:
+  - whitespace
+  - prettier-yaml
+  - prettier-json
+  - shfmt:
+      arguments: ['-s', '-p', '-i', '4']
+  - shellharden:
+      interpreters: ['sh']
+  - black
+  - reorder-python-imports
