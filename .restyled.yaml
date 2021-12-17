@@ -5,7 +5,7 @@ restylers:
   - prettier-yaml
   - prettier-json
   - shfmt:
-      arguments: ['-s', '-p', '-i', '4']
+      arguments: ['-p', '-i', '4']
   - shellharden:
       interpreters: ['sh']
   - black
