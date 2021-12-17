@@ -2,7 +2,7 @@
 name = "obelist"
 version = "0.0.0-a1"
 description = """\
-A CLI tool for parsing arbitrary input and generating standardized, \
+A CLI tool for parsing arbitrary input and generating standardized \
 annotations for linting, tests, etc. (including support for GitHub Actions)\
 """
 authors = ["Naomi Rose <23469+nomiro@users.noreply.github.com>"]
