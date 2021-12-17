@@ -37,9 +37,9 @@ find_files() {
 }
 
 run_shellcheck() {
-    # Echo the shellcheck output to the temporary file so filenames are
-    # seperated by newlines, avoiding the problem of needing NULL bytes to
-    # avoid problems with filenames containing spaces
+    # Echo output to the temporary file so filenames are seperated by newlines,
+    # avoiding the problem of needing NULL bytes to avoid problems with
+    # filenames containing spaces
     tmp_file="$(mktemp)"
     find_files >"${tmp_file}"
     xargs shellcheck --color="always" --format="json" <"${tmp_file}"

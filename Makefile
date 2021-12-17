@@ -52,20 +52,24 @@ update-run:
 update: install-clean update-run install
 	@ $(SUBMAKE) venv-help
 
+.PHONY: wtf
+wtf:
+	@ test/lint/wtf.sh || true
+
 .PHONY: ec
-ec: $(VENV)
+ec:
 	@ test/lint/ec.sh || true
 
 .PHONY: prettier
-prettier: $(VENV)
+prettier:
 	@ test/lint/prettier.sh || true
 
 .PHONY: shellcheck
-shellcheck: $(VENV)
+shellcheck:
 	@ test/lint/shellcheck.sh || true
 
 .PHONY: shfmt
-shfmt: $(VENV)
+shfmt:
 	@ test/lint/shfmt.sh || true
 
 .PHONY: prospector
@@ -90,6 +94,7 @@ lint-clean:
 
 .PHONY: lint-output
 lint-run: $(VENV) lint-clean
+	$(call sh,$(SUBMAKE) wtf)
 	$(call sh,$(SUBMAKE) ec)
 	$(call sh,$(SUBMAKE) prettier)
 	$(call sh,$(SUBMAKE) shellcheck)

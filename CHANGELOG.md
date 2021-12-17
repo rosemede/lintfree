@@ -17,6 +17,7 @@ This project uses [semantic versioning][semver].
 - Add reference implementations for the following tools:
 
   - [shfmt][shfmt]
+  - [Whitespace Total Fixer][wtf]
 
   Each reference implementation includes a parser configuration, a lint script, and integration into the build system.
 
@@ -80,4 +81,5 @@ _Released on 2021-12-15_
 [prospector]: http://prospector.landscape.io/en/master/
 [shellcheck]: https://www.shellcheck.net/
 [shfmt]: https://github.com/patrickvane/shfmt
+[wtf]: https://github.com/dlenski/wtf
 [xpath]: https://lxml.de/xpathxslt.html
