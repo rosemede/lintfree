@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "obelist"
-version = "0.0.0-a0"
+version = "0.0.0-a1"
 description = """\
 A CLI tool for parsing arbitrary input and generating standardized, \
 annotations for linting, tests, etc. (including support for GitHub Actions)\

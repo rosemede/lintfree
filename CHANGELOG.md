@@ -5,6 +5,7 @@ This project uses [semantic versioning][semver].
 **Table of contents:**
 
 - [0.x](#0x)
+  - [0.0.0-a1](#000-a1)
   - [0.0.0-a0](#000-a0)
 
 [semver]: https://semver.org/
@@ -12,6 +13,14 @@ This project uses [semantic versioning][semver].
 <!--
 
 ## Unreleased
+
+-->
+
+## 0.x
+
+### 0.0.0-a1
+
+_Released on 2021-12-17_
 
 - Improved the format and consistency of the parser configuration YAML files.
 
@@ -49,10 +58,6 @@ This project uses [semantic versioning][semver].
   - [Prospector][prospector]
 
   Each reference implementation includes a parser configuration, a lint script, and integration into the build system.
-
--->
-
-## 0.x
 
 ### 0.0.0-a0
 
