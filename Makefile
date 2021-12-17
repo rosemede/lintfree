@@ -64,6 +64,10 @@ prettier: $(VENV)
 shellcheck: $(VENV)
 	@ test/lint/shellcheck.sh || true
 
+.PHONY: shfmt
+shfmt: $(VENV)
+	@ test/lint/shfmt.sh || true
+
 .PHONY: prospector
 prospector: $(VENV)
 	@ test/lint/prospector.sh || true
@@ -89,6 +93,7 @@ lint-run: $(VENV) lint-clean
 	$(call sh,$(SUBMAKE) ec)
 	$(call sh,$(SUBMAKE) prettier)
 	$(call sh,$(SUBMAKE) shellcheck)
+	$(call sh,$(SUBMAKE) shfmt)
 	$(call sh,$(SUBMAKE) prospector)
 	$(call sh,$(SUBMAKE) flake8)
 	$(call sh,$(SUBMAKE) pytest)

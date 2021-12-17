@@ -14,6 +14,12 @@ This project uses [semantic versioning][semver].
 
 ## Unreleased
 
+- Add reference implementations for the following tools:
+
+  - [shfmt][shfmt]
+
+  Each reference implementation includes a parser configuration, a lint script, and integration into the build system.
+
 -->
 
 ## 0.x
@@ -73,4 +79,5 @@ _Released on 2021-12-15_
 [prettier]: https://prettier.io/
 [prospector]: http://prospector.landscape.io/en/master/
 [shellcheck]: https://www.shellcheck.net/
+[shfmt]: https://github.com/patrickvane/shfmt
 [xpath]: https://lxml.de/xpathxslt.html
