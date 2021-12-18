@@ -1,0 +1,19 @@
+name: Copy/Paste Detector
+formats:
+  txt:
+    syntax: regex
+    rules:
+      - match: '^ - ([^ ]+) \[(\d+):\d+ - (\d+):\d+\]'
+        reset: true
+        severity: warning
+        set:
+          filename: 0
+          line: 1
+          end_line: 2
+      - match: '^   ([^ ]+ [^\]]+\])'
+        set:
+          message: 0
+    rewrite:
+      message:
+        - match: '([^ ]+) \[(\d+):\d+ - (\d+):\d+\]'
+          replace: 'Clone found: \1:\2:\3'
