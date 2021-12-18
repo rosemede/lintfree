@@ -1,10 +1,15 @@
 #!/bin/sh -e
 
 lint_out="${LINT_OUT:=}"
+silent="${SILENT:=}"
 
 if test -z "${lint_out}"; then
     echo "Error: \`LINT_OUT\` not set"
     exit 1
+fi
+
+if test "${silent}" != "true"; then
+    make --no-print-directory lint-clean
 fi
 
 # TODO: Add more flake8 extensions
@@ -20,3 +25,7 @@ fi
 flake8 . |
     obelist parse --quiet --console --write "${lint_out}" \
         --error-on="notice" --parser "flake8" --format "txt" -
+
+if test "${silent}" != "true"; then
+    make --no-print-directory lint-process
+fi

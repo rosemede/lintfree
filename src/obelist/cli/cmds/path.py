@@ -13,6 +13,9 @@ from obelist import cli
 )
 @click.pass_obj
 def path(app, absolute):
+    # TODO: Figure out a way to rewrap list items for display. There is no way
+    # I can indent the list items in a comment block without tripping up
+    # EditorConfig checks for 4 spaces of indentation.
     # editorconfig-checker-disable
     # noqa: D213
     r"""Print the parser configuration search path and exit
@@ -28,8 +31,8 @@ def path(app, absolute):
 
     \b
     - Searches for `.obelist` directories in every parent of the current
-      working directory (within the bounds of the current Git repository, if
-      detected)
+    working directory (within the bounds of the current Git repository, if
+    detected)
 
     If ANSI color output is supported, existant directories will be highlighted
     blue whereas non-existant directories will be dimmed.

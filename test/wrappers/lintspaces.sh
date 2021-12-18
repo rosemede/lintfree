@@ -11,15 +11,9 @@ echo "Checking: ${file}"
 
 output="$(mktemp)"
 
-prettier --no-color --ignore-unknown "${file}" >"${output}" || true
-
-if test -s "${output}"; then
-    diff "${file}" "${output}" |
-        grep -E "^[0-9]" |
-        sed 's/c.*//' | sed 's/d.*//' | sed 's/,/:/' |
-        while read -r line; do
-            echo "${file}:${line}:Incorrect formatting" >&2
-        done
-fi
+# TODO: The `strip-ansi` functionality should be baked into Obelist
+lintspaces \
+    --editorconfig .editorconfig --matchdotfiles "${file}" 2>&1 |
+    strip-ansi | sed "s,${PWD}/,," >&2
 
 rm -rf "${output}"

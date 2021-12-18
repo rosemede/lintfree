@@ -1,0 +1,19 @@
+name: Lintspaces
+formats:
+  txt:
+    syntax: regex
+    rules:
+      - match: '^File: (.*)$'
+        reset: true
+        set:
+          filename: 0
+      - match: '^Line: ([0-9]+) (.*) \[warning\]$'
+        severity: warning
+        set:
+          line: 0
+          message: 1
+      - match: '^Line: ([0-9]+) (.*) \[hint\]$'
+        severity: notice
+        set:
+          line: 0
+          message: 1
