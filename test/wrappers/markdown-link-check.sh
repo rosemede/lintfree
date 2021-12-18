@@ -1,15 +1,6 @@
 #!/bin/sh -e
 
-# This script wraps the prettier command and runs it through `diff` to produce
-# a more useful output (i.e., line numbers and an error message)
-
-file="${1}"
-
-# This program is relatively slow, so we make an exception and produce some
-# progress output
-echo "Checking: ${file}"
-
-output="$(mktemp)"
+. test/lib/setup/wrapper.sh
 
 markdown-link-check \
     --quiet --config ".markdown-link-check.json" "${file}" \
@@ -32,5 +23,3 @@ grep -E '\[.\] .* Status' <"${output}" | sort -r | while read -r line; do
         sed -i "${line_number}s,.*,," "${file_copy}"
     done
 done
-
-rm -rf "${output}"

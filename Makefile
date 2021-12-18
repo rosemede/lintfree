@@ -55,55 +55,59 @@ update: install-clean update-run install
 
 .PHONY: wtf
 wtf:
-	@ test/lint/wtf.sh || true
+	@ test/linters/wtf.sh || true
 
 .PHONY: lintspaces
 lintspaces:
-	@ test/lint/lintspaces.sh || true
+	@ test/linters/lintspaces.sh || true
 
 .PHONY: ec
 ec:
-	@ test/lint/ec.sh || true
+	@ test/linters/ec.sh || true
 
 .PHONY: cspell
 cspell:
-	@ test/lint/cspell.sh || true
+	@ test/linters/cspell.sh || true
 
 .PHONY: markdownlint
 markdownlint:
-	@ test/lint/markdownlint.sh || true
+	@ test/linters/markdownlint.sh || true
 
 .PHONY: markdown-link-check
 markdown-link-check:
-	@ test/lint/markdown-link-check.sh || true
+	@ test/linters/markdown-link-check.sh || true
 
 .PHONY: prettier
 prettier:
-	@ test/lint/prettier.sh || true
+	@ test/linters/prettier.sh || true
+
+.PHONY: jscpd
+jscpd: $(VENV)
+	@ test/linters/jscpd.sh || true
 
 .PHONY: shellcheck
 shellcheck:
-	@ test/lint/shellcheck.sh || true
+	@ test/linters/shellcheck.sh || true
 
 .PHONY: shfmt
 shfmt:
-	@ test/lint/shfmt.sh || true
+	@ test/linters/shfmt.sh || true
 
 .PHONY: prospector
 prospector: $(VENV)
-	@ test/lint/prospector.sh || true
+	@ test/linters/prospector.sh || true
 
 .PHONY: flake8
 flake8: $(VENV)
-	@ test/lint/flake8.sh || true
+	@ test/linters/flake8.sh || true
 
 .PHONY: pytest
 pytest: $(VENV)
-	@ test/lint/pytest.sh || true
+	@ test/linters/pytest.sh || true
 
 .PHONY: codecov
 codecov: $(VENV)
-	@ test/lint/codecov.sh || true
+	@ test/linters/codecov.sh || true
 
 .PHONY: lint-clean
 lint-clean:
@@ -118,6 +122,7 @@ lint-run: $(VENV) lint-clean
 	$(call sh,$(SUBMAKE) markdownlint)
 	$(call sh,$(SUBMAKE) markdown-link-check)
 	$(call sh,$(SUBMAKE) prettier)
+	$(call sh,$(SUBMAKE) jscpd)
 	$(call sh,$(SUBMAKE) shellcheck)
 	$(call sh,$(SUBMAKE) shfmt)
 	$(call sh,$(SUBMAKE) prospector)
