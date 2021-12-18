@@ -18,6 +18,7 @@ jsonpointer
 lsb
 lxml
 mkdir
+moreutils
 ng
 obelist
 pexpect
@@ -27,6 +28,7 @@ pyjq
 pyroma
 pytest
 sed
+shfmt
 utf8
 venv
 wtf
