@@ -7,7 +7,6 @@ HELP_STR = "Print this help message and exit"
 VERSION_STR = "Print the program version number and exit"
 
 
-
 class StylizedHelpFormatter(click.HelpFormatter):
 
     """This subclass stylizes the formatting of text-based help pages."""

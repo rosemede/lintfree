@@ -7,7 +7,6 @@ from . import Handler
 
 
 class JQHandler(Handler):
-
     def _set_value(self, match, set_dict, key):
         query = set_dict.get(key)
         if query is None:
