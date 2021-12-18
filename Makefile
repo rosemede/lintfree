@@ -65,6 +65,10 @@ lintspaces:
 ec:
 	@ test/lint/ec.sh || true
 
+.PHONY: cspell
+cspell:
+	@ test/lint/cspell.sh || true
+
 .PHONY: markdownlint
 markdownlint:
 	@ test/lint/markdownlint.sh || true
@@ -106,6 +110,7 @@ lint-run: $(VENV) lint-clean
 	$(call sh,$(SUBMAKE) wtf)
 	$(call sh,$(SUBMAKE) lintspaces)
 	$(call sh,$(SUBMAKE) ec)
+	$(call sh,$(SUBMAKE) cspell)
 	$(call sh,$(SUBMAKE) markdownlint)
 	$(call sh,$(SUBMAKE) prettier)
 	$(call sh,$(SUBMAKE) shellcheck)

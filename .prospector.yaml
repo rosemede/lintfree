@@ -29,7 +29,7 @@ pep8:
 pyflakes:
   run: false
 
-# Disabled because we use flake8 to wrap mcabe instead
+# Disabled because we use flake8 to wrap mccabe instead
 # https://github.com/PyCQA/mccabe
 mccabe:
   run: false
