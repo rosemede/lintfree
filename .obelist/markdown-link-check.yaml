@@ -1,0 +1,16 @@
+name: markdown-link-check
+formats:
+  txt:
+    syntax: regex
+    rules:
+      - match: '^([^:]+):(\d+) ([^ ]+) (.*)$'
+        severity: error
+        set:
+          filename: 0
+          line: 1
+          code: 2
+          message: 3
+    rewrite:
+      code:
+        - match: '^(.*)$'
+          replace: 'HTTP \1'

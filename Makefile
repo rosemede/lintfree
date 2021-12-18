@@ -73,6 +73,10 @@ cspell:
 markdownlint:
 	@ test/lint/markdownlint.sh || true
 
+.PHONY: markdown-link-check
+markdown-link-check:
+	@ test/lint/markdown-link-check.sh || true
+
 .PHONY: prettier
 prettier:
 	@ test/lint/prettier.sh || true
@@ -112,6 +116,7 @@ lint-run: $(VENV) lint-clean
 	$(call sh,$(SUBMAKE) ec)
 	$(call sh,$(SUBMAKE) cspell)
 	$(call sh,$(SUBMAKE) markdownlint)
+	$(call sh,$(SUBMAKE) markdown-link-check)
 	$(call sh,$(SUBMAKE) prettier)
 	$(call sh,$(SUBMAKE) shellcheck)
 	$(call sh,$(SUBMAKE) shfmt)
