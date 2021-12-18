@@ -1,0 +1,17 @@
+pull_request_rules:
+  - name: Ready to merge
+    conditions:
+      - and:
+          - label=ready-to-merge
+          - check-success~=^Build
+          - check-success~=^Sourcery
+          - check-success~=^restyled
+      - or:
+          - check-success~=^LGTM
+          - check-neutral~=^LGTM
+          - check-skipped~=^LGTM
+    actions:
+      merge:
+        method: rebase
+        rebase_fallback: null
+        strict: true
