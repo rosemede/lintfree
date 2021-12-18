@@ -18,6 +18,7 @@ envvar
 esbenp
 fg
 fi
+fn
 fstring
 ipython
 isort
@@ -28,6 +29,7 @@ lxml
 mccabe
 mkdir
 moreutils
+mpoetry
 mypy
 ng
 nomiro
@@ -36,7 +38,6 @@ obelist
 obeluses
 pexpect
 pipx
-mpoetry
 popen
 printf
 pycache

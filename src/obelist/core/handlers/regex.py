@@ -8,17 +8,12 @@ class RegexHandler(Handler):
     _rules = []
     _rewrites = []
 
-    _default_set_dict = None
     _current_annotation = None
-
-    _annotations = []
 
     _required_attributes = ["filename", "line", "severity", "message"]
 
     def __init__(self, severities, config):
         super().__init__(severities, config)
-        # TODO: Catch errors
-        self._rules = self._config["rules"]
         # Compile regular expressions (and catch any errors)
         for rule in self._rules:
             # TODO: Catch errors

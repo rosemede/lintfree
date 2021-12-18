@@ -1,24 +1,23 @@
 name: ShellCheck
 formats:
-  # checkstyle:
-  #   syntax: xpath
-  #   rules:
-  #     - match: '//error[@severity="info"]'
-  #       severity: error
-  #     - match: '//error[@severity="warning"]'
-  #       severity: '//error[@severity="warning"]'
-  #     - match: '//error[@severity="error"]'
-  #       severity: error
-  #   set:
-  #     file: '../@name'
-  #     line: '@line'
-  #     code: '@source'
-  #     message: '@message'
-  #   rewrite:
-  #     code:
-  #       - match: '.*\.'
-  #         replace: ''
-
+  checkstyle:
+    syntax: xpath
+    rules:
+      - match: '//error[@severity="info"]'
+        severity: error
+      - match: '//error[@severity="warning"]'
+        severity: '//error[@severity="warning"]'
+      - match: '//error[@severity="error"]'
+        severity: error
+    set:
+      file: '../@name'
+      line: '@line'
+      code: '@source'
+      message: '@message'
+    rewrite:
+      code:
+        - match: '.*\.'
+          replace: ''
   json:
     syntax: jq
     rules:
