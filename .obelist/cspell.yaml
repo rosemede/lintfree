@@ -1,0 +1,11 @@
+name: cSpell
+formats:
+  txt:
+    syntax: regex
+    rules:
+      - match: '^([^:]+):(\d+):(\d+) - (.*)$'
+        severity: warning
+    set:
+      filename: 0
+      line: 1
+      message: 3

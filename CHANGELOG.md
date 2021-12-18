@@ -16,6 +16,7 @@ This project uses [semantic versioning][semver].
 
 - Add reference implementations for the following tools:
 
+  - [cSpell][cspell]
   - [Lintspaces][lintspaces]
   - [MarkdownLint][markdownlint]
   - [shfmt][shfmt]
@@ -76,6 +77,7 @@ _Released on 2021-12-15_
 
   This release includes a reference implementation for [ShellCheck][shellcheck].
 
+[cspell]: https://cspell.org/
 [editorconfig]: https://editorconfig.org/
 [flake8]: https://flake8.pycqa.org/en/latest/
 [jq]: https://stedolan.github.io/jq/manual/
