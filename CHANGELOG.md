@@ -17,6 +17,7 @@ This project uses [semantic versioning][semver].
 - Add reference implementations for the following tools:
 
   - [Lintspaces][lintspaces]
+  - [markdown-link-check][mlc]
   - [MarkdownLint][markdownlint]
   - [shfmt][shfmt]
   - [Whitespace Total Fixer][wtf]
@@ -78,12 +79,11 @@ _Released on 2021-12-15_
 
 [editorconfig]: https://editorconfig.org/
 [flake8]: https://flake8.pycqa.org/en/latest/
-[jq]: https://stedolan.github.io/jq/manual/
 [lintspaces]: https://github.com/evanshortiss/lintspaces-cli
 [markdownlint]: https://github.com/igorshubovych/markdownlint-cli
+[mlc]: https://github.com/tcort/markdown-link-check
 [prettier]: https://prettier.io/
 [prospector]: http://prospector.landscape.io/en/master/
 [shellcheck]: https://www.shellcheck.net/
 [shfmt]: https://github.com/patrickvane/shfmt
 [wtf]: https://github.com/dlenski/wtf
-[xpath]: https://lxml.de/xpathxslt.html
