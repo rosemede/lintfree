@@ -1,9 +1,9 @@
+import json
 import re
 
 import charset_normalizer
-from lxml import etree
-import json
 import pyjq
+from lxml import etree
 
 from .. import errors
 
@@ -28,6 +28,38 @@ class Handler:
         # TODO: Catch encoding errors
         charset_data = charset_normalizer.from_bytes(bytes).best()
         return str(charset_data)
+
+    def _handle_match(self, severity, match_attrs, match, attr_fn):
+        annotation = {"severity_name": severity["severity_name"]}
+        # TODO: Catch errors
+        file = match_attrs["file"]
+        line = match_attrs["line"]
+        end_line = match_attrs["end_line"]
+        title = match_attrs["title"]
+        message = match_attrs["message"]
+        # TODO: Catch errors
+        annotation["file"] = attr_fn(match, file)
+        annotation["line"] = attr_fn(match, line)
+        annotation["end-line"] = attr_fn(match, end_line)
+        annotation["title"] = attr_fn(match, title)
+        annotation["message"] = attr_fn(match, message)
+        return annotation
+
+    def _handle_severity(self, severity, matches_fn, attr_fn):
+        matches = matches_fn(severity["match"])
+        match_attrs = severity.get("match-attrs", self._match_attrs)
+        if not match_attrs.get("end_line"):
+            match_attrs["end_line"] = match_attrs["line"]
+        for match in matches:
+            yield self._handle_match(severity, match_attrs, match, attr_fn)
+
+    def _query_annotations(self, matches_fn, attr_fn):
+        annotations = []
+        for severity in self._severities:
+            annotations.extend(
+                self._handle_severity(severity, matches_fn, attr_fn)
+            )
+        return annotations
 
     def annotate(self, input):
         raise errors.NotImplementedError
@@ -139,52 +171,26 @@ class RegexHandler(Handler):
 
 class XPathHandler(Handler):
     def annotate(self, input):
-        annotations = []
         root = etree.fromstring(input)
-        for severity in self._severities:
-            matches = root.xpath(severity["match"])
-            match_attrs = severity.get("match-attrs", self._match_attrs)
-            for match in matches:
-                annotation = {}
-                # TODO: Catch errors
-                file = match_attrs["file"]
-                line = match_attrs["line"]
-                end_line = match_attrs.get("line", line)
-                title = match_attrs["title"]
-                message = match_attrs["message"]
-                # TODO: Catch errors
-                annotation["severity_name"] = severity["severity_name"]
-                annotation["file"] = match.xpath(file)[0]
-                annotation["line"] = match.xpath(line)[0]
-                annotation["end-line"] = match.xpath(end_line)[0]
-                annotation["title"] = match.xpath(title)[0]
-                annotation["message"] = match.xpath(message)[0]
-                annotations.append(annotation)
-        return annotations
+
+        def matches_fn(query):
+            return root.xpath(query)
+
+        def attr_fn(match, attr):
+            return match.xpath(attr)[0]
+
+        return self._query_annotations(matches_fn, attr_fn)
 
 
 class JQHandler(Handler):
     def annotate(self, input):
-        annotations = []
         input = self._decode(input)
         json_dict = json.loads(input)
-        for severity in self._severities:
-            matches = pyjq.all(severity["match"], json_dict)
-            match_attrs = severity.get("match-attrs", self._match_attrs)
-            for match in matches:
-                annotation = {}
-                # TODO: Catch errors
-                file = match_attrs["file"]
-                line = match_attrs["line"]
-                end_line = match_attrs.get("line", line)
-                title = match_attrs["title"]
-                message = match_attrs["message"]
-                # TODO: Catch errors
-                annotation["severity_name"] = severity["severity_name"]
-                annotation["file"] = pyjq.all(file, match)[0]
-                annotation["line"] = pyjq.all(line, match)[0]
-                annotation["end-line"] = pyjq.all(end_line, match)[0]
-                annotation["title"] = pyjq.all(title, match)[0]
-                annotation["message"] = pyjq.all(message, match)[0]
-                annotations.append(annotation)
-        return annotations
+
+        def matches_fn(query):
+            return pyjq.all(query, json_dict)
+
+        def attr_fn(match, attr):
+            return pyjq.all(attr, match)[0]
+
+        return self._query_annotations(matches_fn, attr_fn)
