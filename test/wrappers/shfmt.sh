@@ -5,6 +5,10 @@
 
 file="${1}"
 
+# This program is relatively slow, so we make an exception and produce some
+# progress output
+echo "Checking: ${file}"
+
 output="$(mktemp)"
 
 shfmt -p -i 4 "${file}" >"${output}" || true
@@ -14,7 +18,7 @@ if test -s "${output}"; then
         grep -E "^[0-9]" |
         sed 's/c.*//' | sed 's/d.*//' | sed 's/,/:/' |
         while read -r line; do
-            echo "${file}:${line}:Incorrect formatting"
+            echo "${file}:${line}:Incorrect formatting" >&2
         done
 fi
 

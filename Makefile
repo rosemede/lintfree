@@ -15,7 +15,8 @@ LINT_OUT := lint.tmp
 
 define sh
 @ printf "\e$(DIM)$$ %s\e$(RESET)\n" \
-		"$$(echo $1 | sed -E 's,make -[^ ]+ ,make ,')" && $1;
+	"$$(echo $1 | sed -E 's,make -[^ ]+ ,make ,')" && \
+	SILENT=true $1;
 endef
 
 .PHONY: help # Print this help message and exit
@@ -55,6 +56,10 @@ update: install-clean update-run install
 .PHONY: wtf
 wtf:
 	@ test/lint/wtf.sh || true
+
+.PHONY: lintspaces
+lintspaces:
+	@ test/lint/lintspaces.sh || true
 
 .PHONY: ec
 ec:
@@ -99,6 +104,7 @@ lint-clean:
 .PHONY: lint-output
 lint-run: $(VENV) lint-clean
 	$(call sh,$(SUBMAKE) wtf)
+	$(call sh,$(SUBMAKE) lintspaces)
 	$(call sh,$(SUBMAKE) ec)
 	$(call sh,$(SUBMAKE) markdownlint)
 	$(call sh,$(SUBMAKE) prettier)
