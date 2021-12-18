@@ -4,9 +4,12 @@ pull_request_rules:
       - and:
           - label=ready-to-merge
           - check-success~=^Build
-          - check-success~=^LGTM
           - check-success~=^Sourcery
           - check-success~=^restyled
+      - or:
+          - check-success~=^LGTM
+          - check-neutral~=^LGTM
+          - check-skipped~=^LGTM
     actions:
       merge:
         method: rebase
