@@ -24,6 +24,7 @@ This project uses [semantic versioning][semver].
   - [reorder-python-imports][py-imports]
   - [shfmt][shfmt]
   - [Whitespace Total Fixer][wtf]
+  - [woke][woke]
 
   Each reference implementation includes a parser configuration, a lint script, and integration into the build system.
 
@@ -92,4 +93,5 @@ _Released on 2021-12-15_
 [py-imports]: https://github.com/asottile/reorder_python_imports
 [shellcheck]: https://www.shellcheck.net/
 [shfmt]: https://github.com/patrickvane/shfmt
+[woke]: https://github.com/get-woke/woke
 [wtf]: https://github.com/dlenski/wtf
