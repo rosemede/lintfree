@@ -69,6 +69,10 @@ ec:
 cspell:
 	@ test/linters/cspell.sh || true
 
+.PHONY: woke
+woke:
+	@ test/linters/woke.sh || true
+
 .PHONY: markdownlint
 markdownlint:
 	@ test/linters/markdownlint.sh || true
@@ -127,6 +131,7 @@ lint-run: $(VENV) lint-clean
 	$(call sh,$(SUBMAKE) lintspaces)
 	$(call sh,$(SUBMAKE) ec)
 	$(call sh,$(SUBMAKE) cspell)
+	$(call sh,$(SUBMAKE) woke)
 	$(call sh,$(SUBMAKE) markdownlint)
 	$(call sh,$(SUBMAKE) markdown-link-check)
 	$(call sh,$(SUBMAKE) prettier)
