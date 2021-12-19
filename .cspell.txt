@@ -45,6 +45,7 @@ pyflakes
 pyjq
 pylance
 pylint
+pyproject
 pyroma
 pytest
 restylers

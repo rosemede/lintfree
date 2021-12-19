@@ -93,6 +93,11 @@ shellcheck:
 shfmt:
 	@ test/linters/shfmt.sh || true
 
+.PHONY: black
+black: $(VENV)
+	@ test/linters/black.sh || true
+
+
 .PHONY: prospector
 prospector: $(VENV)
 	@ test/linters/prospector.sh || true
@@ -125,6 +130,7 @@ lint-run: $(VENV) lint-clean
 	$(call sh,$(SUBMAKE) jscpd)
 	$(call sh,$(SUBMAKE) shellcheck)
 	$(call sh,$(SUBMAKE) shfmt)
+	$(call sh,$(SUBMAKE) black)
 	$(call sh,$(SUBMAKE) prospector)
 	$(call sh,$(SUBMAKE) flake8)
 	$(call sh,$(SUBMAKE) pytest)
