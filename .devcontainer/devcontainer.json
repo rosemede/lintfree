@@ -1,4 +1,14 @@
 {
   "image": "nomiro/devcontainers:universal",
-  "remoteUser": "vscode"
+  "remoteUser": "vscode",
+  "extensions": [
+    "streetsidesoftware.code-spell-checker",
+    "editorconfig.editorconfig",
+    "yzhang.markdown-all-in-one",
+    "davidanson.vscode-markdownlint",
+    "esbenp.prettier-vscode",
+    "ms-python.python",
+    "foxundermoon.shell-format",
+    "timonwong.shellcheck"
+  ]
 }
