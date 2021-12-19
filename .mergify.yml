@@ -5,7 +5,6 @@ pull_request_rules:
           - label=ready-to-merge
           - check-success~=^Run tests
           - check-success~=^Sourcery
-          - check-success~=^restyled
       - or:
           - check-success~=^LGTM
           - check-neutral~=^LGTM
