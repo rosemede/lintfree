@@ -1,25 +1,14 @@
 {
   "recommendations": [
-    "dansnow.vscode-dockerfilelint",
-    "davidanson.vscode-markdownlint",
-    "editorconfig.editorconfig",
-    "eg2.vscode-npm-script",
-    "esbenp.prettier-vscode",
-    "magicstack.magicpython",
-    "ms-python.vscode-pylance",
-    "ms-vscode.makefile-tools",
-    "sharat.vscode-brewfile",
-    "streetsidesoftware.code-spell-checker",
-    "tetradresearch.vscode-h2o",
-    "timonwong.shellcheck",
-    "tamasfe.even-better-toml",
-    "sourcery.sourcery",
-    "thebutlah.reorder-python-imports",
-    "tamasfe.even-better-toml",
     "codezombiech.gitignore",
-    "yzhang.markdown-all-in-one",
-    "foxundermoon.shell-format",
-    "xshrim.txt-syntax",
-    "sandcastle.whitespace"
+    "eg2.vscode-npm-script",
+    "emeraldwalk.runonsave",
+    "magicstack.magicpython",
+    "ms-vscode.makefile-tools",
+    "sandcastle.whitespace",
+    "sourcery.sourcery",
+    "tamasfe.even-better-toml",
+    "tetradresearch.vscode-h2o",
+    "xshrim.txt-syntax"
   ]
 }
