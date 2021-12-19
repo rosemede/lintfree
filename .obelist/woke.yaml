@@ -1,0 +1,15 @@
+name: Woke
+formats:
+  txt:
+    syntax: regex
+    rules:
+      - match: '^([^:]+):(\d+):[^:]+: (.*) \(error\)$'
+        severity: error
+      - match: '^([^:]+):(\d+):[^:]+: (.*) \(warning\)$'
+        severity: warning
+      - match: '^([^:]+):(\d+):[^:]+: (.*) \(info\)$'
+        severity: notice
+    set:
+      filename: 0
+      line: 1
+      message: 2
