@@ -1,0 +1,11 @@
+name: Misspell
+formats:
+  txt:
+    syntax: regex
+    rules:
+      - match: '^([^:]+):(\d+):[^:]+: (.*)$'
+        severity: error
+    set:
+      filename: 0
+      line: 1
+      message: 2

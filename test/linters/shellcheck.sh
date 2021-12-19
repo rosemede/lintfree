@@ -3,7 +3,7 @@
 . test/lib/setup/linter.sh
 
 run_shellcheck() {
-    # Echo output to the temporary file so filenames are seperated by newlines,
+    # Echo output to the temporary file so filenames are separated by newlines,
     # avoiding the problem of needing NULL bytes to avoid problems with
     # filenames containing spaces
     tmp_file="$(mktemp)"

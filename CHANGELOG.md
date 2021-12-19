@@ -21,6 +21,7 @@ This project uses [semantic versioning][semver].
   - [Lintspaces][lintspaces]
   - [markdown-link-check][mlc]
   - [MarkdownLint][markdownlint]
+  - [Misspell][misspell]
   - [reorder-python-imports][py-imports]
   - [shfmt][shfmt]
   - [Whitespace Total Fixer][wtf]
@@ -87,6 +88,7 @@ _Released on 2021-12-15_
 [flake8]: https://flake8.pycqa.org/en/latest/
 [lintspaces]: https://github.com/evanshortiss/lintspaces-cli
 [markdownlint]: https://github.com/igorshubovych/markdownlint-cli
+[misspell]: https://github.com/client9/misspell
 [mlc]: https://github.com/tcort/markdown-link-check
 [prettier]: https://prettier.io/
 [prospector]: http://prospector.landscape.io/en/master/
