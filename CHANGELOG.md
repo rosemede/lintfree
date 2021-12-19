@@ -16,6 +16,7 @@ This project uses [semantic versioning][semver].
 
 - Add reference implementations for the following tools:
 
+  - [Black][black]
   - [cSpell][cspell]
   - [Lintspaces][lintspaces]
   - [markdown-link-check][mlc]
@@ -78,6 +79,7 @@ _Released on 2021-12-15_
 
   This release includes a reference implementation for [ShellCheck][shellcheck].
 
+[black]: https://black.readthedocs.io/en/stable/index.html
 [cspell]: https://cspell.org/
 [editorconfig]: https://editorconfig.org/
 [flake8]: https://flake8.pycqa.org/en/latest/
