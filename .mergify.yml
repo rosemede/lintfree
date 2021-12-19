@@ -3,7 +3,7 @@ pull_request_rules:
     conditions:
       - and:
           - label=ready-to-merge
-          - check-success~=^Build
+          - check-success~=^Run tests
           - check-success~=^Sourcery
           - check-success~=^restyled
       - or:
