@@ -49,6 +49,7 @@ pyproject
 pyroma
 pytest
 restylers
+runonsave
 sed
 shfmt
 sourcery

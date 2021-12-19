@@ -21,6 +21,7 @@ This project uses [semantic versioning][semver].
   - [Lintspaces][lintspaces]
   - [markdown-link-check][mlc]
   - [MarkdownLint][markdownlint]
+  - [reorder-python-imports][py-imports]
   - [shfmt][shfmt]
   - [Whitespace Total Fixer][wtf]
 
@@ -88,6 +89,7 @@ _Released on 2021-12-15_
 [mlc]: https://github.com/tcort/markdown-link-check
 [prettier]: https://prettier.io/
 [prospector]: http://prospector.landscape.io/en/master/
+[py-imports]: https://github.com/asottile/reorder_python_imports
 [shellcheck]: https://www.shellcheck.net/
 [shfmt]: https://github.com/patrickvane/shfmt
 [wtf]: https://github.com/dlenski/wtf

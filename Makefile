@@ -97,6 +97,9 @@ shfmt:
 black: $(VENV)
 	@ test/linters/black.sh || true
 
+.PHONY: reorder-python-imports
+reorder-python-imports: $(VENV)
+	@ test/linters/reorder-python-imports.sh || true
 
 .PHONY: prospector
 prospector: $(VENV)
@@ -131,6 +134,7 @@ lint-run: $(VENV) lint-clean
 	$(call sh,$(SUBMAKE) shellcheck)
 	$(call sh,$(SUBMAKE) shfmt)
 	$(call sh,$(SUBMAKE) black)
+	$(call sh,$(SUBMAKE) reorder-python-imports)
 	$(call sh,$(SUBMAKE) prospector)
 	$(call sh,$(SUBMAKE) flake8)
 	$(call sh,$(SUBMAKE) pytest)
