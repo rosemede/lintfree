@@ -1,4 +1,5 @@
 import click
+
 from obelist import cli
 
 
@@ -33,8 +34,8 @@ def path(app, absolute):
     working directory (within the bounds of the current Git repository, if
     detected)
 
-    If ANSI color output is supported, existant directories will be highlighted
-    blue whereas non-existant directories will be dimmed.
+    If ANSI color output is supported, existent directories will be highlighted
+    blue whereas non-existent directories will be dimmed.
     """
     # editorconfig-checker-enable
     paths = app.get_config_search_paths(absolute)

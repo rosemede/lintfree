@@ -65,6 +65,10 @@ lintspaces:
 ec:
 	@ test/linters/ec.sh || true
 
+.PHONY: misspell
+misspell:
+	@ test/linters/misspell.sh || true
+
 .PHONY: cspell
 cspell:
 	@ test/linters/cspell.sh || true
@@ -131,6 +135,7 @@ lint-run: $(VENV) lint-clean
 	$(call sh,$(SUBMAKE) lintspaces)
 	$(call sh,$(SUBMAKE) ec)
 	$(call sh,$(SUBMAKE) cspell)
+	$(call sh,$(SUBMAKE) misspell)
 	$(call sh,$(SUBMAKE) woke)
 	$(call sh,$(SUBMAKE) markdownlint)
 	$(call sh,$(SUBMAKE) markdown-link-check)
