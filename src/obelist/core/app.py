@@ -1,12 +1,12 @@
 import os
 import pathlib
 
-import sh
-
 import obelist
+import sh
+from obelist import errors
+
 from .config import Configuration
 from .parse import Parser
-from obelist import errors
 
 
 class Application:
