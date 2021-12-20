@@ -121,10 +121,15 @@ class Application:
         self._parser.read_commands(read_file)
 
     def print(self, sort_by, before_context, after_context):
-        return self._parser.print(
+        status_code = self._parser.print(
             self._error_on,
             self._write_file,
             sort_by,
             before_context,
             after_context,
         )
+        # TODO: Could probably loosen this up so any statement which could
+        # evaluate to true will work (perhaps Click can help with this)
+        if os.environ.get("OBELIST_NO_ERROR") == "true":
+            status_code = 0
+        return status_code
