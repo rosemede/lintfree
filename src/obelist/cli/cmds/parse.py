@@ -10,12 +10,14 @@ from obelist import cli
 @click.argument("input", required=False, default="-", type=click.File("rb"))
 @click.help_option("-h", "--help", help=cli.HELP_STR)
 # TODO: Implement some sort of config guesssing
+# TODO: Allow this to be configured in a global config file
 @click.option(
     "-q",
     "--quiet",
     is_flag=True,
     help="Suppress all non-essential output",
 )
+# TODO: Allow this to be configured in a global config file
 @click.option(
     "-d",
     "--debug",
@@ -34,6 +36,7 @@ from obelist import cli
     required=True,
     help="Specify the parser to use",
 )
+# TODO: Allow this to be configured in a global config file
 # TODO: https://click.palletsprojects.com/en/8.0.x/options/#choice-options
 @click.option(
     "-e",
@@ -55,6 +58,7 @@ from obelist import cli
     required=True,
     help="Specify the input format",
 )
+# TODO: Allow this to be configured in a global config file
 # TODO: https://click.palletsprojects.com/en/8.0.x/options/#choice-options
 @click.option(
     "-s",
@@ -76,6 +80,7 @@ from obelist import cli
         them (can be used in combination with `obelist print` command)
     """,
 )
+# TODO: Allow this to be configured in a global config file
 @click.option(
     "-c",
     "--console",
@@ -86,6 +91,7 @@ from obelist import cli
         `PRINT_CONSOLE` environment variable value)
     """,
 )
+# TODO: Allow this to be configured in a global config file
 @click.option(
     "-b",
     "--before-context",
@@ -97,6 +103,7 @@ from obelist import cli
         Print the specified number of lines before each annotated section
     """,
 )
+# TODO: Allow this to be configured in a global config file
 @click.option(
     "-a",
     "--after-context",
@@ -129,6 +136,13 @@ def parse(
     file. You can specify `-` to read from standard input (STDIN). However,
     when no `INPUT` value is provided, the program will attempt to read from
     STDIN by default.
+
+    If you set the `OBELIST_NO_ERROR` environment variable to `true`, the
+    command will ignore the `--error-on` option and never exit with an error.
+    You can use this feature in conjunction with the `--write` option to log
+    annotations without stopping the build because of a single command error.
+    Afterward, you can process the annotation log in bulk with the `format`
+    command and the `--error-on` option as desired.
 
     When the program exits because of a parsed error message, the returned
     error code corresponds to the highest error message encountered:
