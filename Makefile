@@ -93,6 +93,10 @@ markdownlint:
 prettier:
 	@ test/linters/prettier.sh
 
+.PHONY: yamllint
+yamllint:
+	@ test/linters/yamllint.sh || true
+
 .PHONY: jscpd
 jscpd: $(VENV)
 	@ test/linters/jscpd.sh
@@ -145,6 +149,7 @@ lint-run: $(VENV) lint-clean
 	$(call sh,$(SUBMAKE) markdown-link-check)
 	$(call sh,$(SUBMAKE) markdownlint)
 	$(call sh,$(SUBMAKE) prettier)
+	$(call sh,$(SUBMAKE) yamllint)
 	$(call sh,$(SUBMAKE) jscpd)
 	$(call sh,$(SUBMAKE) shellcheck)
 	$(call sh,$(SUBMAKE) shfmt)

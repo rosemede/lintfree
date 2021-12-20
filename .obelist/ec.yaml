@@ -3,7 +3,7 @@ formats:
   txt:
     syntax: regex
     rules:
-      - match: '^(.*):$'
+      - match: ^(.*):$
         reset: true
         severity: error
         set:

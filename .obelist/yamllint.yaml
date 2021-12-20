@@ -1,0 +1,21 @@
+name: yamllint
+formats:
+  txt:
+    syntax: regex
+    rules:
+      - match: ^([^ ]+)$
+        reset: true
+        set:
+          filename: 0
+      - match: '  ([0-9]+):[0-9]+ +error + (.*) \(([^\)]+)\)$'
+        severity: error
+        set:
+          line: 0
+          message: 1
+          code: 2
+      - match: '  ([0-9]+):[0-9]+ +warning + (.*) \(([^\)]+)\)$'
+        severity: warning
+        set:
+          line: 0
+          message: 1
+          code: 2

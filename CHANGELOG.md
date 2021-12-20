@@ -31,6 +31,7 @@ This project uses [semantic versioning][semver].
   - [shfmt][shfmt]
   - [Whitespace Total Fixer][wtf]
   - [woke][woke]
+  - [yamllint][yamllint]
 
   Each reference implementation includes a parser configuration, a lint script, and integration into the build system.
 
@@ -103,3 +104,4 @@ _Released on 2021-12-15_
 [shfmt]: https://github.com/patrickvane/shfmt
 [woke]: https://github.com/get-woke/woke
 [wtf]: https://github.com/dlenski/wtf
+[yamllint]: https://yamllint.readthedocs.io/en/stable/index.html
