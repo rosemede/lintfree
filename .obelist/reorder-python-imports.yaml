@@ -3,11 +3,10 @@ formats:
   txt:
     syntax: regex
     rules:
-      - match: '^([^:]+):(\d+)(:(\d+))?:(.*)$'
+      - match: ^([^:]+):(\d+)(:(\d+))?:(.*)$
         severity: warning
-        reset: true
-        set:
-          filename: 0
-          line: 1
-          end_line: 3
-          message: 4
+    set:
+      filename: 0
+      line: 1
+      end_line: 3
+      message: 4

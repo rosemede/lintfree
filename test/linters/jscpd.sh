@@ -2,10 +2,12 @@
 
 . test/lib/setup/linter.sh
 
+# TODO: Figure out a way to avoid the copy and paste issues with Obelist parser
+# configuration files
 # TODO: Turn down `min-tokens` and refactor as you go
 run_jscpd() {
     jscpd \
-        --ignore '.venv/**' \
+        --ignore '.venv/**,.obelist/**' \
         --min-lines 1 --min-tokens 40 . |
         strip-ansi
 }

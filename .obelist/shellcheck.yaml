@@ -3,38 +3,38 @@ formats:
   checkstyle:
     syntax: xpath
     rules:
-      - match: '//error[@severity="info"]'
+      - match: //error[@severity="info"]
         severity: error
-      - match: '//error[@severity="warning"]'
-        severity: '//error[@severity="warning"]'
-      - match: '//error[@severity="error"]'
+      - match: //error[@severity="warning"]
+        severity: //error[@severity="warning"]
+      - match: //error[@severity="error"]
         severity: error
     set:
-      file: '../@name'
+      file: ../@name
       line: '@line'
       code: '@source'
       message: '@message'
     rewrite:
       code:
-        - match: '.*\.'
+        - match: .*\.
           replace: ''
   json:
     syntax: jq
     rules:
       - match:
-          '.[] | select(type=="object" and .level=="style" or .level=="info")'
+          .[] | select(type=="object" and .level=="style" or .level=="info")
         severity: notice
-      - match: '.[] | select(type=="object" and .level=="warning")'
+      - match: .[] | select(type=="object" and .level=="warning")
         severity: warning
-      - match: '.[] | select(type=="object" and .level=="error")'
+      - match: .[] | select(type=="object" and .level=="error")
         severity: error
     set:
-      filename: '.file'
-      line: '.line'
-      end-line: '.endLine'
-      code: '.code'
-      message: '.message'
+      filename: .file
+      line: .line
+      end-line: .endLine
+      code: .code
+      message: .message
     rewrite:
       code:
-        - match: '^(.*)$'
-          replace: 'SC\1'
+        - match: ^(.*)$
+          replace: SC\1

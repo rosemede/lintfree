@@ -46,7 +46,7 @@ class BaseFormater:
         title = self._name
         code = annotation.get("code")
         if code:
-            title = f"{self._name} {code}"
+            title = f"{self._name}: {code}"
         return title
 
     def _print(self, str):
