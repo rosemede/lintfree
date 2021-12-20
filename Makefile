@@ -77,6 +77,10 @@ cspell:
 woke:
 	@ test/linters/woke.sh
 
+.PHONY: proselint
+proselint:
+	@ test/linters/proselint.sh
+
 .PHONY: lychee
 lychee:
 	@ test/linters/lychee.sh
@@ -145,6 +149,7 @@ lint-run: $(VENV) lint-clean
 	$(call sh,$(SUBMAKE) cspell)
 	$(call sh,$(SUBMAKE) misspell)
 	$(call sh,$(SUBMAKE) woke)
+	$(call sh,$(SUBMAKE) proselint)
 	$(call sh,$(SUBMAKE) lychee)
 	$(call sh,$(SUBMAKE) markdown-link-check)
 	$(call sh,$(SUBMAKE) markdownlint)
