@@ -79,7 +79,7 @@ woke:
 
 .PHONY: lychee
 lychee:
-	@ test/linters/lychee.sh || true
+	@ test/linters/lychee.sh
 
 .PHONY: markdown-link-check
 markdown-link-check:
@@ -88,10 +88,6 @@ markdown-link-check:
 .PHONY: markdownlint
 markdownlint:
 	@ test/linters/markdownlint.sh
-
-.PHONY: markdownlint
-markdownlint:
-	@ test/linters/markdownlint.sh || true
 
 .PHONY: prettier
 prettier:

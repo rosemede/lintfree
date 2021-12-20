@@ -14,7 +14,11 @@ This project uses [semantic versioning][semver].
 
 ## Unreleased
 
-- Add reference implementations for the following tools:
+- Added the `OBELIST_NO_ERROR` environment variable.
+
+  If you set the `OBELIST_NO_ERROR` environment variable to `true`, the `obelist` command will ignore the `--error-on` option and never exit with an error.
+
+- Added reference implementations for the following tools:
 
   - [Black][black]
   - [cSpell][cspell]
