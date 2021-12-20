@@ -42,7 +42,7 @@ class Parser:
 
     _severities = ["notice", "warning", "error"]
 
-    _highest_severity = 0
+    _highest_severity = None
 
     _error_severity = 0
 

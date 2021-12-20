@@ -16,7 +16,7 @@ LINT_OUT := lint.tmp
 define sh
 @ printf "\e$(DIM)$$ %s\e$(RESET)\n" \
 	"$$(echo $1 | sed -E 's,make -[^ ]+ ,make ,')" && \
-	SILENT=true $1;
+	OBELIST_NO_ERROR="true" $1;
 endef
 
 .PHONY: help # Print this help message and exit
@@ -55,83 +55,79 @@ update: install-clean update-run install
 
 .PHONY: wtf
 wtf:
-	@ test/linters/wtf.sh || true
+	@ test/linters/wtf.sh
 
 .PHONY: lintspaces
 lintspaces:
-	@ test/linters/lintspaces.sh || true
+	@ test/linters/lintspaces.sh
 
 .PHONY: ec
 ec:
-	@ test/linters/ec.sh || true
+	@ test/linters/ec.sh
 
 .PHONY: misspell
 misspell:
-	@ test/linters/misspell.sh || true
+	@ test/linters/misspell.sh
 
 .PHONY: cspell
 cspell:
-	@ test/linters/cspell.sh || true
+	@ test/linters/cspell.sh
 
 .PHONY: woke
 woke:
-	@ test/linters/woke.sh || true
+	@ test/linters/woke.sh
 
 .PHONY: lychee
 lychee:
-	@ test/linters/lychee.sh || true
+	@ test/linters/lychee.sh
 
 .PHONY: markdown-link-check
 markdown-link-check:
-	@ test/linters/markdown-link-check.sh || true
+	@ test/linters/markdown-link-check.sh
 
 .PHONY: markdownlint
 markdownlint:
-	@ test/linters/markdownlint.sh || true
-
-.PHONY: markdownlint
-markdownlint:
-	@ test/linters/markdownlint.sh || true
+	@ test/linters/markdownlint.sh
 
 .PHONY: prettier
 prettier:
-	@ test/linters/prettier.sh || true
+	@ test/linters/prettier.sh
 
 .PHONY: jscpd
 jscpd: $(VENV)
-	@ test/linters/jscpd.sh || true
+	@ test/linters/jscpd.sh
 
 .PHONY: shellcheck
 shellcheck:
-	@ test/linters/shellcheck.sh || true
+	@ test/linters/shellcheck.sh
 
 .PHONY: shfmt
 shfmt:
-	@ test/linters/shfmt.sh || true
+	@ test/linters/shfmt.sh
 
 .PHONY: black
 black: $(VENV)
-	@ test/linters/black.sh || true
+	@ test/linters/black.sh
 
 .PHONY: reorder-python-imports
 reorder-python-imports: $(VENV)
-	@ test/linters/reorder-python-imports.sh || true
+	@ test/linters/reorder-python-imports.sh
 
 .PHONY: prospector
 prospector: $(VENV)
-	@ test/linters/prospector.sh || true
+	@ test/linters/prospector.sh
 
 .PHONY: flake8
 flake8: $(VENV)
-	@ test/linters/flake8.sh || true
+	@ test/linters/flake8.sh
 
 .PHONY: pytest
 pytest: $(VENV)
-	@ test/linters/pytest.sh || true
+	@ test/linters/pytest.sh
 
 .PHONY: codecov
 codecov: $(VENV)
-	@ test/linters/codecov.sh || true
+	@ test/linters/codecov.sh
 
 .PHONY: lint-clean
 lint-clean:
