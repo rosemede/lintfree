@@ -14,11 +14,16 @@ This project uses [semantic versioning][semver].
 
 ## Unreleased
 
-- Add reference implementations for the following tools:
+- Added the `OBELIST_NO_ERROR` environment variable.
+
+  If you set the `OBELIST_NO_ERROR` environment variable to `true`, the `obelist` command will ignore the `--error-on` option and never exit with an error.
+
+- Added reference implementations for the following tools:
 
   - [Black][black]
   - [cSpell][cspell]
   - [Lintspaces][lintspaces]
+  - [Lychee][lychee]
   - [markdown-link-check][mlc]
   - [MarkdownLint][markdownlint]
   - [Misspell][misspell]
@@ -88,6 +93,7 @@ _Released on 2021-12-15_
 [editorconfig]: https://editorconfig.org/
 [flake8]: https://flake8.pycqa.org/en/latest/
 [lintspaces]: https://github.com/evanshortiss/lintspaces-cli
+[lychee]: https://github.com/lycheeverse/lychee
 [markdownlint]: https://github.com/igorshubovych/markdownlint-cli
 [misspell]: https://github.com/client9/misspell
 [mlc]: https://github.com/tcort/markdown-link-check
