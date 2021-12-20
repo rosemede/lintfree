@@ -57,7 +57,7 @@ ipython = "^7.28.0"
 icecream = "^2.1.1"
 reorder-python-imports = "^2.6.0"
 prospector = "^1.5.3"
-flake8= "^3.8.4"
+flake8= "^4.0.0"
 tox = "^3.24.4"
 flake8-cognitive-complexity = "^0.1.0"
 
