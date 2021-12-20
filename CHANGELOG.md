@@ -19,6 +19,7 @@ This project uses [semantic versioning][semver].
   - [Black][black]
   - [cSpell][cspell]
   - [Lintspaces][lintspaces]
+  - [Lychee][lychee]
   - [markdown-link-check][mlc]
   - [MarkdownLint][markdownlint]
   - [Misspell][misspell]
@@ -87,6 +88,7 @@ _Released on 2021-12-15_
 [editorconfig]: https://editorconfig.org/
 [flake8]: https://flake8.pycqa.org/en/latest/
 [lintspaces]: https://github.com/evanshortiss/lintspaces-cli
+[lychee]: https://github.com/lycheeverse/lychee
 [markdownlint]: https://github.com/igorshubovych/markdownlint-cli
 [misspell]: https://github.com/client9/misspell
 [mlc]: https://github.com/tcort/markdown-link-check
