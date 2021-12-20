@@ -1,4 +1,12 @@
 [[package]]
+name = "appdirs"
+version = "1.4.4"
+description = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "appnope"
 version = "0.1.2"
 description = "Disable App Nap on macOS >= 10.9"
@@ -194,7 +202,7 @@ python-versions = "*"
 name = "filelock"
 version = "3.4.0"
 description = "A platform independent file lock."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -851,6 +859,28 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
+name = "uritools"
+version = "3.0.2"
+description = "URI parsing, classification and composition"
+category = "main"
+optional = false
+python-versions = "~=3.5"
+
+[[package]]
+name = "urlextract"
+version = "1.4.0"
+description = "Collects and extracts URLs from given text."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+appdirs = "*"
+filelock = "*"
+idna = "*"
+uritools = "*"
+
+[[package]]
 name = "urllib3"
 version = "1.26.7"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
@@ -925,9 +955,13 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "2df96172a8222e368da4f6b29db263fd36fa163b0be8a1cdeaaa1a700ab3e3a1"
+content-hash = "0682f10c084bcbffe18348373997b0b3af5c2e7882f1040d39e4496f233f248b"
 
 [metadata.files]
+appdirs = [
+    {file = "appdirs-1.4.4-py2.py3-none-any.whl", hash = "sha256:a841dacd6b99318a741b166adb07e19ee71a274450e68237b4650ca1055ab128"},
+    {file = "appdirs-1.4.4.tar.gz", hash = "sha256:7d5d0167b2b1ba821647616af46a749d1c653740dd0d2415100fe26e27afdf41"},
+]
 appnope = [
     {file = "appnope-0.1.2-py2.py3-none-any.whl", hash = "sha256:93aa393e9d6c54c5cd570ccadd8edad61ea0c4b9ea7a01409020c9aa019eb442"},
     {file = "appnope-0.1.2.tar.gz", hash = "sha256:dd83cd4b5b460958838f6eb3000c660b1f9caf2a5b1de4264e941512f603258a"},
@@ -1359,6 +1393,14 @@ typed-ast = [
 typing-extensions = [
     {file = "typing_extensions-4.0.1-py3-none-any.whl", hash = "sha256:7f001e5ac290a0c0401508864c7ec868be4e701886d5b573a9528ed3973d9d3b"},
     {file = "typing_extensions-4.0.1.tar.gz", hash = "sha256:4ca091dea149f945ec56afb48dae714f21e8692ef22a395223bcd328961b6a0e"},
+]
+uritools = [
+    {file = "uritools-3.0.2-py3-none-any.whl", hash = "sha256:576737664f51f82d5c2a98e25f6c5da73a57cc88326dbb686fd6c5d06ebd6c29"},
+    {file = "uritools-3.0.2.tar.gz", hash = "sha256:28ffef82ce3b2793237d36e45aa7cde28dae6502f6a93fdbd05ede401520e279"},
+]
+urlextract = [
+    {file = "urlextract-1.4.0-py3-none-any.whl", hash = "sha256:55c401dddf12aa65c09f0fcc02eff2be6a28f6e305797ed6ff4b8ed26100e860"},
+    {file = "urlextract-1.4.0.tar.gz", hash = "sha256:669f07192584b841b49ba8868fbd6b00e7ddc28367d36a3d8ca8c8e429420748"},
 ]
 urllib3 = [
     {file = "urllib3-1.26.7-py2.py3-none-any.whl", hash = "sha256:c4fdf4019605b6e5423637e01bc9fe4daef873709a7973e195ceba0a62bbc844"},

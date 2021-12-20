@@ -56,6 +56,7 @@ sourcery
 tac
 tamasfe
 thebutlah
+usr
 utf
 utf8
 venv
