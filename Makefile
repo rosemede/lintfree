@@ -166,13 +166,14 @@ lint-run: $(VENV) lint-clean
 	$(call sh,$(SUBMAKE) codecov)
 
 .PHONY: lint-format
-lint-process:
+lint-process: lint-run
 	@ if test -s "$(LINT_OUT)"; then \
 		obelist format --error-on="notice" "$(LINT_OUT)"; \
 	fi
 
 .PHONY: lint # Run lint checks
-lint: lint-run lint-process
+lint: lint-process
+	@ $(SUBMAKE) lint-clean
 
 # TODO: Not implemented yet
 .PHONY: format # Run all available auto-formatters
