@@ -77,13 +77,21 @@ cspell:
 woke:
 	@ test/linters/woke.sh || true
 
-.PHONY: markdownlint
-markdownlint:
-	@ test/linters/markdownlint.sh || true
+.PHONY: lychee
+lychee:
+	@ test/linters/lychee.sh || true
 
 .PHONY: markdown-link-check
 markdown-link-check:
 	@ test/linters/markdown-link-check.sh || true
+
+.PHONY: markdownlint
+markdownlint:
+	@ test/linters/markdownlint.sh || true
+
+.PHONY: markdownlint
+markdownlint:
+	@ test/linters/markdownlint.sh || true
 
 .PHONY: prettier
 prettier:
@@ -137,8 +145,9 @@ lint-run: $(VENV) lint-clean
 	$(call sh,$(SUBMAKE) cspell)
 	$(call sh,$(SUBMAKE) misspell)
 	$(call sh,$(SUBMAKE) woke)
-	$(call sh,$(SUBMAKE) markdownlint)
+	$(call sh,$(SUBMAKE) lychee)
 	$(call sh,$(SUBMAKE) markdown-link-check)
+	$(call sh,$(SUBMAKE) markdownlint)
 	$(call sh,$(SUBMAKE) prettier)
 	$(call sh,$(SUBMAKE) jscpd)
 	$(call sh,$(SUBMAKE) shellcheck)

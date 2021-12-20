@@ -1,4 +1,4 @@
-name: markdown-link-check
+name: Lychee
 formats:
   txt:
     syntax: regex
