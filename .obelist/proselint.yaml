@@ -1,0 +1,12 @@
+name: proselint
+formats:
+  txt:
+    syntax: regex
+    rules:
+      - match: '^([^:]+):(\d+):\d+: ([^ ]+) (.*)$'
+        severity: warning
+    set:
+      filename: 0
+      line: 1
+      code: 2
+      message: 3

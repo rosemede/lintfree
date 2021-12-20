@@ -27,6 +27,7 @@ This project uses [semantic versioning][semver].
   - [markdown-link-check][mlc]
   - [MarkdownLint][markdownlint]
   - [Misspell][misspell]
+  - [proselint][proselint]
   - [reorder-python-imports][py-imports]
   - [shfmt][shfmt]
   - [Whitespace Total Fixer][wtf]
@@ -98,6 +99,7 @@ _Released on 2021-12-15_
 [misspell]: https://github.com/client9/misspell
 [mlc]: https://github.com/tcort/markdown-link-check
 [prettier]: https://prettier.io/
+[proselint]: https://github.com/amperser/proselint
 [prospector]: http://prospector.landscape.io/en/master/
 [py-imports]: https://github.com/asottile/reorder_python_imports
 [shellcheck]: https://www.shellcheck.net/
