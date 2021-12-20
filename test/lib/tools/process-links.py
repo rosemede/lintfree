@@ -11,7 +11,6 @@ def get_contents(filename):
         charset_data = charset_normalizer.from_bytes(bytes).best()
         return str(charset_data)
 
-
 def handle_line(extractor, file, file_line, line_num, output_dict):
     urls = extractor.find_urls(file_line)
     for url, message in output_dict.items():
