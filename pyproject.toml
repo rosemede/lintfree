@@ -47,8 +47,6 @@ lxml = "^4.6.4"
 pyjq = "^2.5.2"
 PyYAML = "^6.0"
 natsort = "^8.0.0"
-pyroma = "^3.2"
-vulture = "^2.3"
 urlextract = "^1.4.0"
 
 [tool.poetry.dev-dependencies]
@@ -57,9 +55,11 @@ ipython = "^7.28.0"
 icecream = "^2.1.1"
 reorder-python-imports = "^2.6.0"
 prospector = "^1.5.3"
-flake8= "^3.8.4"
-tox = "^3.24.4"
+pyroma = "^3.2"
+vulture = "^2.3"
+flake8 = "^3.9.2"
 flake8-cognitive-complexity = "^0.1.0"
+pep8 = "^1.7.1"
 
 [tool.black]
 line-length = 79

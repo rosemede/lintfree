@@ -15,6 +15,9 @@ This project uses [semantic versioning][semver].
 
 ## Unreleased
 
+- Fixed issues with some Python development dependencies being listed as user
+  dependencies.
+
 -->
 
 ## 0.x
