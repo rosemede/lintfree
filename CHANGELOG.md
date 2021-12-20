@@ -47,6 +47,20 @@ _Released on 2021-12-20_
 
   Each reference implementation includes a parser configuration, a lint script, and integration into the build system.
 
+[black]: https://black.readthedocs.io/en/stable/index.html
+[cspell]: https://cspell.org/
+[lintspaces]: https://github.com/evanshortiss/lintspaces-cli
+[lychee]: https://github.com/lycheeverse/lychee
+[markdownlint]: https://github.com/igorshubovych/markdownlint-cli
+[misspell]: https://github.com/client9/misspell
+[mlc]: https://github.com/tcort/markdown-link-check
+[proselint]: https://github.com/amperser/proselint
+[py-imports]: https://github.com/asottile/reorder_python_imports
+[shfmt]: https://github.com/patrickvane/shfmt
+[woke]: https://github.com/get-woke/woke
+[wtf]: https://github.com/dlenski/wtf
+[yamllint]: https://yamllint.readthedocs.io/en/stable/index.html
+
 ### 0.0.0-a1
 
 _Released on 2021-12-17_
@@ -88,6 +102,11 @@ _Released on 2021-12-17_
 
   Each reference implementation includes a parser configuration, a lint script, and integration into the build system.
 
+[editorconfig]: https://editorconfig.org/
+[flake8]: https://flake8.pycqa.org/en/latest/
+[prettier]: https://prettier.io/
+[prospector]: http://prospector.landscape.io/en/master/
+
 ### 0.0.0-a0
 
 _Released on 2021-12-15_
@@ -96,21 +115,4 @@ _Released on 2021-12-15_
 
   This release includes a reference implementation for [ShellCheck][shellcheck].
 
-[black]: https://black.readthedocs.io/en/stable/index.html
-[cspell]: https://cspell.org/
-[editorconfig]: https://editorconfig.org/
-[flake8]: https://flake8.pycqa.org/en/latest/
-[lintspaces]: https://github.com/evanshortiss/lintspaces-cli
-[lychee]: https://github.com/lycheeverse/lychee
-[markdownlint]: https://github.com/igorshubovych/markdownlint-cli
-[misspell]: https://github.com/client9/misspell
-[mlc]: https://github.com/tcort/markdown-link-check
-[prettier]: https://prettier.io/
-[proselint]: https://github.com/amperser/proselint
-[prospector]: http://prospector.landscape.io/en/master/
-[py-imports]: https://github.com/asottile/reorder_python_imports
 [shellcheck]: https://www.shellcheck.net/
-[shfmt]: https://github.com/patrickvane/shfmt
-[woke]: https://github.com/get-woke/woke
-[wtf]: https://github.com/dlenski/wtf
-[yamllint]: https://yamllint.readthedocs.io/en/stable/index.html
