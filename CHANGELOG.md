@@ -5,6 +5,7 @@ This project uses [semantic versioning][semver].
 **Table of contents:**
 
 - [0.x](#0x)
+  - [0.0.0-a2](#000-a2)
   - [0.0.0-a1](#000-a1)
   - [0.0.0-a0](#000-a0)
 
@@ -14,9 +15,19 @@ This project uses [semantic versioning][semver].
 
 ## Unreleased
 
+-->
+
+## 0.x
+
+### 0.0.0-a2
+
+_Released on 2021-12-20_
+
 - Added the `OBELIST_NO_ERROR` environment variable.
 
-  If you set the `OBELIST_NO_ERROR` environment variable to `true`, the `obelist` command will ignore the `--error-on` option and never exit with an error.
+  If you set this environment variable to `true`, the `obelist` command will ignore the `--error-on` option and never exit with an error.
+
+- Added a colon (`:`) between the parser name and error code when printing annotations to the console.
 
 - Added reference implementations for the following tools:
 
@@ -35,10 +46,6 @@ This project uses [semantic versioning][semver].
   - [yamllint][yamllint]
 
   Each reference implementation includes a parser configuration, a lint script, and integration into the build system.
-
--->
-
-## 0.x
 
 ### 0.0.0-a1
 

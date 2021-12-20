@@ -1,6 +1,6 @@
 # Obelist
 
-_A CLI tool for parsing arbitrary input and generating standardized annotations for linting, tests, etc. (including support for GitHub Actions)_
+_A CLI tool for generating standard annotations for linting tools, tests, and so on (including support for GitHub Actions)_
 
 [![Build][action-build-img]][action-build]
 
