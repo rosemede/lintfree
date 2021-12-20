@@ -223,5 +223,4 @@ class Parser:
     ):
         self._postprocess_annotations(sort_by)
         self._format(write_file, before_context, after_context)
-        status_code = self._get_status_code(error_on)
-        return status_code
+        return self._get_status_code(error_on)
