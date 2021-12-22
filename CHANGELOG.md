@@ -15,6 +15,9 @@ This project uses [semantic versioning][semver].
 
 ## Unreleased
 
+- Fixed bug with handling of internal severity levels causing any sort of
+  annotation to raise a parse exception.
+
 - Fixed issues with some Python development dependencies being listed as user
   dependencies.
 

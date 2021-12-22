@@ -147,9 +147,9 @@ def parse(
     When the program exits because of a parsed error message, the returned
     error code corresponds to the highest error message encountered:
 
-    - 100: notice
-    - 101: warning
-    - 102: error
+    - 101: notice
+    - 102: warning
+    - 103: error
 
     If the `GITHUB_ACTIONS` environment variable is set to `true`, this program
     will print GitHub workflow commands to send parser output to the GitHub

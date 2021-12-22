@@ -42,7 +42,7 @@ class Parser:
 
     _severities = ["notice", "warning", "error"]
 
-    _highest_severity = None
+    _highest_severity = 0
 
     _error_severity = 0
 
@@ -107,10 +107,8 @@ class Parser:
 
     def _add_severity_level(self, annotation):
         severity = annotation["severity"]
-        try:
-            severity_level = self._severities.index(severity)
-        except ValueError:
-            severity_level = 0
+        # TODO: Catch errors if severity isn't valid
+        severity_level = self._severities.index(severity) + 1
         annotation["severity_level"] = severity_level
         if severity_level > self._highest_severity:
             self._highest_severity = severity_level
@@ -159,16 +157,13 @@ class Parser:
 
     def _get_status_code(self, error_on):
         try:
-            error_on_severity = self._severities.index(error_on)
+            error_on_severity = self._severities.index(error_on) + 1
         except ValueError as err:
             raise errors.ConfigurationError(
                 message=f"Invalid severity name: {error_on}"
             ) from err
         status_code = 0
-        if (
-            self._highest_severity is not None
-            and self._highest_severity >= error_on_severity
-        ):
+        if self._highest_severity >= error_on_severity:
             status_code = 100 + self._highest_severity
         return status_code
 
