@@ -12,5 +12,5 @@ if test -z "${lint_out}"; then
 fi
 
 if test "${no_error}" != "true"; then
-    make --no-print-directory lint-clean
+    make --no-print-directory lint-reset
 fi

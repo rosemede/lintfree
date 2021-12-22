@@ -1,7 +1,6 @@
 import json
 
-import pyjq
-from icecream import ic
+import jq
 
 from . import Handler
 
@@ -11,9 +10,9 @@ class JQHandler(Handler):
         query = set_dict.get(key)
         if query is None:
             return None
-        value = pyjq.all(query, match)[0]
+        value = jq.compile(query).input(match).first()
         if self._debug:
-            ic(value)
+            print(value)
         return value
 
     def _annotate(self, input):
@@ -22,7 +21,7 @@ class JQHandler(Handler):
         json_dict = json.loads(input)
 
         def matches_fn(query):
-            return pyjq.all(query, json_dict)
+            return jq.compile(query).input(json_dict).all()
 
         self._generate_matches(matches_fn)
         return self._annotations

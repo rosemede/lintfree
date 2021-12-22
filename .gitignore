@@ -1,6 +1,8 @@
 __pycache__
+.tox/
 .venv/
 .vscode/settings.json
 *.log
 *.tmp
 dist/
+poetry.lock

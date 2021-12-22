@@ -1,6 +1,25 @@
 name: cSpell
 formats:
-  txt:
+  sort:
+    syntax: regex
+    rules:
+      - match: ^([^:]+):(\d+)(:(\d+))?:(.*)$
+        severity: warning
+    set:
+      filename: 0
+      line: 1
+      end_line: 3
+      message: 4
+  entries:
+    syntax: regex
+    rules:
+      - match: '^([^:]+):(\d+): (.*)$'
+        severity: error
+    set:
+      filename: 0
+      line: 1
+      message: 2
+  output:
     syntax: regex
     rules:
       - match: ^([^:]+):(\d+):(\d+) - (.*)$

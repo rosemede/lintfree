@@ -6,11 +6,76 @@ on:
       - main
 
 jobs:
-  build:
-    name: Run tests
+  pull-devcontainer:
+    name: Pull devcontainer
     runs-on: ubuntu-latest
-    container:
-      image: nomiro/devcontainers:universal
     steps:
-      - uses: actions/checkout@v2
-      - run: make lint
+      - run: docker pull nomiro/devcontainers:universal
+      - run: docker ps -a
+      - run: docker images nomiro/devcontainers:universal
+      - run: docker ps -a
+      - run: |
+          docker run -it --detach --name devcontainer \
+            nomiro/devcontainers:universal /bin/sh
+      - run: docker ps -a
+      - run: docker exec devcontainer touch /tmp/bar
+      - run: docker ps -a
+      - run: docker exec devcontainer ls -l /tmp
+      - run: docker ps -a
+      - run: |
+          docker commit "$(docker ps --latest --quiet)" \
+            nomiro/devcontainers:universal
+      - run: |
+          docker export "$(docker ps --latest --quiet)" |
+            gzip >/tmp/devcontainer.tar.gz
+      - uses: actions/upload-artifact@v2
+        with:
+          name: devcontainer
+          path: /tmp/devcontainer.tar.gz
+
+  configure-matrix:
+    name: Configure matrix
+    needs: pull-devcontainer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: devcontainer
+          path: /tmp
+      - run: ls -l /tmp
+      - name: docker image load
+        run: |
+          gunzip -c /tmp/devcontainer.tar.gz |
+            docker import - devcontainer:latest
+      - name: docker image
+        run: docker image ls
+      - run: |
+          docker run -it --detach --name devcontainer \
+            devcontainer:latest /bin/sh
+      - run: docker ps
+      - run: docker exec devcontainer ls -l /tmp
+      - run: docker ps -a
+      - run: docker exec devcontainer cat /tmp/bar
+  #     - uses: actions/checkout@v2
+  #     - name: Set lint targets
+  #       id: set-matrix
+  #       run: |
+  #         echo "::set-output name=matrix::$(make lint-targets | \
+  #           jq -Rc '[inputs]')"
+  #   outputs:
+  #     matrix: ${{ steps.set-matrix.outputs.matrix }}
+
+  # lint-matrix:
+  #   name: Lint matrix
+  #   needs: configure-matrix
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: docker://nomiro/devcontainers:universal
+  #   strategy:
+  #     matrix:
+  #       targets: ${{ fromJSON(needs.configure-matrix.outputs.matrix) }}
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Make ${{ matrix.target }}
+  #       - run docker run nomiro/devcontainers:universal echo foo
+  #       # run: make lint-${{ matrix.target }}

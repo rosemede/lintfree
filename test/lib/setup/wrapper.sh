@@ -2,8 +2,6 @@
 
 file="${1}"
 
-echo "Checking: ${file}"
-
 output="$(mktemp)"
 export output
 

@@ -1,7 +1,6 @@
 import re
 
 import charset_normalizer
-from icecream import ic
 
 from ... import errors
 
@@ -85,7 +84,7 @@ class Handler:
 
     def _handle_match(self, rule, match, set_dict, annotation):
         if self._debug:
-            ic(match)
+            print(match)
         annotation = annotation.copy()
         for key in annotation:
             # TODO: Catch errors
