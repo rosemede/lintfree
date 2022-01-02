@@ -6,7 +6,7 @@ formats:
       - match: //error[@severity="info"]
         severity: error
       - match: //error[@severity="warning"]
-        severity: //error[@severity="warning"]
+        severity: warning
       - match: //error[@severity="error"]
         severity: error
     set:

@@ -6,6 +6,7 @@
 find . -type "f" \
     ! -path "./.git/*" \
     ! -path "./.venv/*" \
+    ! -path "./.tox/*" \
     ! -path "./poetry.lock" |
     sed 's,./,,' | sort | while read -r file; do
     # Skip any files ignored by Git

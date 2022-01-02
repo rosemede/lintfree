@@ -21,6 +21,8 @@ This project uses [semantic versioning][semver].
 - Fixed issues with some Python development dependencies being listed as user
   dependencies.
 
+- Fixed bug in `shellcheck.yaml` parser configuration.
+
 -->
 
 ## 0.x

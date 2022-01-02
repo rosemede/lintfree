@@ -2,7 +2,7 @@ import json
 import re
 
 import charset_normalizer
-import pyjq
+import jq
 from lxml import etree
 
 from .. import errors
@@ -188,9 +188,9 @@ class JQHandler(Handler):
         json_dict = json.loads(input)
 
         def matches_fn(query):
-            return pyjq.all(query, json_dict)
+            return jq.compile(query).input(json_dict).all()
 
         def attr_fn(match, attr):
-            return pyjq.all(attr, match)[0]
+            return jq.compile(attr).input(match).first()
 
         return self._query_annotations(matches_fn, attr_fn)

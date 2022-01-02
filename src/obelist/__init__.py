@@ -1,8 +1,8 @@
 import pathlib
-from importlib.metadata import distribution
 
-dist = distribution("obelist")
-version = dist.version
+import pkg_resources
+
+version = pkg_resources.get_distribution("obelist").version
 
 root_dir_path = pathlib.Path(__file__).parent
 data_dir_path = root_dir_path.joinpath("data")
