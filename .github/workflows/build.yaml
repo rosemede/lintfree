@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: docker build -t devcontainer .devcontainer
-      - run: docker run -it --detach --name devcontainer
+      - run: docker run -it --detach --name devcontainer /bin/sh
       - run: docker ps -a
       - run: docker exec devcontainer echo foo
   #     - run: docker ps -a
