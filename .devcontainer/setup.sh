@@ -28,6 +28,12 @@ set -a
 set +a
 EOF
 
+apk update
+apk upgrade
+
+apk add --no-cache \
+    alpine-sdk
+
 # I thought this would fix it, but it doesn't
 apk add --no-cache linux-pam
 
@@ -84,7 +90,8 @@ apk add --no-cache \
     zlib-dev \
     readline-dev \
     sqlite-dev \
-    bash
+    bash \
+    cffi
 
 apk add --no-cache \
     python3 \
