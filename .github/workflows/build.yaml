@@ -10,15 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: docker buildx build .devcontainer --tag devcontainer:latest
+      - run: docker buildx build .devcontainer --name devcontainer
       - run: docker ps -a
-  #     - run: docker images nomiro/devcontainers:universal
-  #     - run: docker ps -a
-  #     - run: |
-  #         docker run -it --detach --name devcontainer \
-  #           nomiro/devcontainers:universal /bin/sh
-  #     - run: docker ps -a
-  #     - run: docker exec devcontainer touch /tmp/bar
+      #     - run: docker ps -a
+      - run: docker exec devcontainer echo foo
   #     - run: docker ps -a
   #     - run: docker exec devcontainer ls -l /tmp
   #     - run: docker ps -a
