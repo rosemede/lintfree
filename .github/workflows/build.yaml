@@ -13,7 +13,7 @@ jobs:
       - uses: docker/metadata-action@v3
         id: meta
         with:
-          images: ${{ github.repository }}/devcontainer
+          images: ${{ github.repository }}
           tags: |
             type=ref,event=branch
             type=ref,event=pr
