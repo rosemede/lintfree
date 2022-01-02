@@ -36,6 +36,7 @@ jobs:
     steps:
       - uses: chipkent/action-cleanup-package@v1.0.1
         with:
-          package-name: ${{ github.event.repository.name }}/devcontainer
+          package-name:
+            ghcr.io/${{ github.event.repository.name }}/devcontainer
           tag: pr-${{ github.event.pull_request.number }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
