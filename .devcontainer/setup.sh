@@ -90,13 +90,13 @@ apk add --no-cache \
     zlib-dev \
     readline-dev \
     sqlite-dev \
-    bash \
-    cffi
+    bash
 
 apk add --no-cache \
     python3 \
     python3-dev \
-    py3-pip
+    py3-pip \
+    py3-cffi
 
 pip3 install pipx
 
