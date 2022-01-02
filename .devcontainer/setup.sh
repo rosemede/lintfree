@@ -76,6 +76,17 @@ apk add --no-cache \
 
 # -----------------------------------------------------------------------------
 
+apk add --no-cache \
+    python3
+python3-dev
+py3-pip
+
+pip3 install pipx
+
+pipx install poetry
+
+# -----------------------------------------------------------------------------
+
 apk add --no-cache npm
 npm config set fund false --global
 # TODO: Adding `--no-audit` prevents these commands from printing information
