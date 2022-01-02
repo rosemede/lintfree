@@ -92,18 +92,6 @@ apk add --no-cache \
     sqlite-dev \
     bash
 
-cat >>~/.bashrc <<EOF
-PYENV_ROOT="/usr/local/pyenv"
-export PYENV_ROOT
-
-PATH="${PYENV_ROOT}/bin:${PYENV_ROOT}/shims:${PATH}"
-export PATH
-
-eval "$(pyenv virtualenv-init -)"
-EOF
-
-. ~/.bashrc
-
 curl -fsSL https://pyenv.run | bash
 
 py_install() {
