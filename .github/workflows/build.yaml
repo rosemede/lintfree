@@ -12,6 +12,8 @@ jobs:
       - uses: actions/checkout@v2
       - run: docker build -t devcontainer .devcontainer
       - run: docker run devcontainer
+      - run: docker ps -a
+      - run: docker exec devcontainer echo foo
   #     - run: docker ps -a
   #     - run: docker exec devcontainer ls -l /tmp
   #     - run: docker ps -a
