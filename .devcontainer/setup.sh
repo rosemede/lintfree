@@ -92,11 +92,42 @@ apk add --no-cache \
     sqlite-dev \
     bash
 
-apk add --no-cache \
-    python3 \
-    python3-dev \
-    py3-pip \
-    py3-cffi
+cat >>~/.bashrc <<EOF
+PYENV_ROOT="/usr/local/pyenv"
+PATH="${PYENV_ROOT}/bin:${PYENV_ROOT}/shims:${PATH}"
+export PATH
+EOF
+
+# Simulate opening a new shell to put pipx on the path
+. ~/.bashrc
+
+curl -fsSL https://pyenv.run | bash
+
+py_install() {
+    PY_MINOR="${1}"
+    # Install the latest patch version
+    PY_VERSION="$(
+        pyenv install --list |
+            grep "${PY_MINOR}" | sort -n | tail -n 1 | xargs
+    )"
+    pyenv install "${PY_MINOR}-dev"
+    pyenv install "${PY_VERSION}"
+    pyenv global "${PY_VERSION}"
+}
+
+py_install 3.6
+py_install 3.7
+py_install 3.8
+py_install 3.9
+py_install 3.10
+
+pip3 install --upgrade pip
+
+# apk add --no-cache \
+#     python3 \
+#     python3-dev \
+#     py3-pip \
+#     py3-cffi
 
 pip3 install pipx
 
