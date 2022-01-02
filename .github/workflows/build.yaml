@@ -13,7 +13,7 @@ jobs:
       - uses: docker/metadata-action@v3
         id: meta
         with:
-          images: ghcr.io/${{ github.repository }}/devcontainer
+          images: ghcr.io/${{ github.repository }}
           tags: |
             type=ref,event=branch
             type=ref,event=pr
@@ -36,6 +36,6 @@ jobs:
     steps:
       - uses: chipkent/action-cleanup-package@v1.0.1
         with:
-          package-name: ghcr.io/${{ github.repository }}/devcontainer
+          package-name: ${{ github.repository }}
           tag: pr-${{ github.event.pull_request.number }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
