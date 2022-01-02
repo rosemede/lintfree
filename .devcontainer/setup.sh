@@ -77,6 +77,16 @@ apk add --no-cache \
 # -----------------------------------------------------------------------------
 
 apk add --no-cache \
+    linux-headers \
+    libffi-dev \
+    openssl-dev \
+    bzip2-dev \
+    zlib-dev \
+    readline-dev \
+    sqlite-dev \
+    bash
+
+apk add --no-cache \
     python3 \
     python3-dev \
     py3-pip
