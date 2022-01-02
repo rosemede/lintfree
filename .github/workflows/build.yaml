@@ -34,9 +34,8 @@ jobs:
     needs: create-image
     runs-on: ubuntu-latest
     steps:
-      - uses: bots-house/ghcr-delete-image-action@v1.0.0
+      - uses: chipkent/action-cleanup-package@v1.0.1
         with:
-          owner: ${{ github.actor }}
-          name: lintkit/devcontainer
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag: pr-${{github.event.pull_request.number}}
+          package-name: ${{ github.event.repository.name }}/devcontainer
+          tag: pr-${{ github.event.pull_request.number }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
