@@ -13,23 +13,23 @@ jobs:
       - uses: docker/metadata-action@v3
         id: meta
         with:
-          images: ${{ github.repository }}
+          images: ghcr.io/${{ github.repository }}
           tags: |
             type=ref,event=branch
             type=ref,event=pr
-          github-token: ${{ github.token }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: docker/build-push-action@v2
-        id: build
         with:
           context: .devcontainer
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          push: true
+          secrets: GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
   delete-image:
     needs: create-image
     runs-on: ubuntu-latest
