@@ -94,6 +94,8 @@ apk add --no-cache \
 
 cat >>~/.bashrc <<EOF
 PYENV_ROOT="/usr/local/pyenv"
+export PYENV_ROOT
+
 PATH="${PYENV_ROOT}/bin:${PYENV_ROOT}/shims:${PATH}"
 export PATH
 EOF
@@ -102,6 +104,8 @@ EOF
 . ~/.bashrc
 
 curl -fsSL https://pyenv.run | bash
+
+eval "$(pyenv virtualenv-init -)"
 
 py_install() {
     PY_MINOR="${1}"
