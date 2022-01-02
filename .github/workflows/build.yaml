@@ -7,12 +7,11 @@ on:
 
 jobs:
   pull-devcontainer:
-    name: Pull devcontainer
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: docker buildx build .devcontainer
-  #     - run: docker ps -a
+      - run: docker ps -a
   #     - run: docker images nomiro/devcontainers:universal
   #     - run: docker ps -a
   #     - run: |
