@@ -98,14 +98,13 @@ export PYENV_ROOT
 
 PATH="${PYENV_ROOT}/bin:${PYENV_ROOT}/shims:${PATH}"
 export PATH
+
+eval "$(pyenv virtualenv-init -)"
 EOF
 
-# Simulate opening a new shell to put pipx on the path
 . ~/.bashrc
 
 curl -fsSL https://pyenv.run | bash
-
-eval "$(pyenv virtualenv-init -)"
 
 py_install() {
     PY_MINOR="${1}"
