@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: docker buildx build .devcontainer
+      - run: docker buildx build .devcontainer --tag devcontainer:latest
       - run: docker ps -a
   #     - run: docker images nomiro/devcontainers:universal
   #     - run: docker ps -a
