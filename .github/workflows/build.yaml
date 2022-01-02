@@ -29,6 +29,7 @@ jobs:
           context: .devcontainer
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          push: true
   delete-image:
     needs: create-image
     runs-on: ubuntu-latest
