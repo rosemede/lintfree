@@ -1,3 +1,3 @@
 #!/bin/sh -e
 
-echo foo
+ls -l /tmp/src
