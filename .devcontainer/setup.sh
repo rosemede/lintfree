@@ -64,9 +64,8 @@ apk add --no-cache \
 
 # -----------------------------------------------------------------------------
 
-apk add --no-cache
-
-libxml2 \
+apk add --no-cache \
+    libxml2 \
     libxml2-dev \
     libxslt \
     libxslt-dev \
