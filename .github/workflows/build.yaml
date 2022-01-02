@@ -38,5 +38,5 @@ jobs:
         with:
           owner: ${{ github.actor }}
           name: ${{ github.repository }}/devcontainer
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           tag: pr-${{github.event.pull_request.number}}
