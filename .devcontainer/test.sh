@@ -1,3 +1,4 @@
 #!/bin/sh -e
 
-ls -l /tmp/src
+cd /tmp/checkout
+make checks

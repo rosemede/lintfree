@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: docker build -t devcontainer .devcontainer
-      - run: docker run -v ${PWD}:/tmp/src devcontainer /tmp/test.sh
+      - run: docker run -v ${PWD}:/tmp/checkout devcontainer /tmp/test.sh
   #     - run: docker ps -a
   #     - run: docker exec devcontainer ls -l /tmp
   #     - run: docker ps -a
