@@ -100,6 +100,8 @@ apk add --no-cache \
 
 pip3 install pipx
 
+pipx ensurepath
+
 pipx install poetry
 
 # -----------------------------------------------------------------------------
