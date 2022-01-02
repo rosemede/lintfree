@@ -106,8 +106,6 @@ py_install() {
     pyenv global "${PY_VERSION}"
 }
 
-py_install 3.6
-py_install 3.7
 py_install 3.8
 py_install 3.9
 py_install 3.10
