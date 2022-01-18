@@ -2,6 +2,7 @@ import pathlib
 from importlib.metadata import distribution
 
 dist = distribution("obelist")
+# TODO: This should be `__version__`
 version = dist.version
 
 root_dir_path = pathlib.Path(__file__).parent
